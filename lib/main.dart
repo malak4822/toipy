@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Image.asset("img/logo1.png"),
         ),
       );
-//////////////////////////// POLA TEKSTOWE ////////////////////////////////////////////
+//////////////////////////// POLA TEKSTOWE ///////////////////////////////////
   Widget fields() => Column(children: [
         Container(
             margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -156,6 +156,28 @@ class _MyHomePageState extends State<MyHomePage> {
             ))
       ]);
 
+  Widget mediasilogin() => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                  primary: const Color.fromARGB(210, 105, 30, 1),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30)),
+                  ),
+                  padding: const EdgeInsets.all(40)),
+              child: Center(
+                  child: Text(
+                "Zaloguj się",
+                style:
+                    GoogleFonts.overpass(fontSize: 40.0, color: Colors.white),
+              )))
+        ],
+      );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,6 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               logo(),
               fields(),
+              mediasilogin(),
             ],
           ),
         ),
