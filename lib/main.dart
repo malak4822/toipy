@@ -1,3 +1,4 @@
+import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -35,6 +36,8 @@ bool _isPasswordVisible = true;
 double initialHeight = 150;
 double initialImageHeight = initialHeight;
 double expandedImageHeight = 180;
+
+double normsizeIkony = 40;
 
 class _MyHomePageState extends State<MyHomePage> {
   void poopAnimationIn() async {
@@ -109,71 +112,79 @@ class _MyHomePageState extends State<MyHomePage> {
                 border: Border.all(color: Colors.white, width: 1.5),
                 color: const Color.fromARGB(210, 105, 30, 1),
                 borderRadius: const BorderRadius.all(Radius.circular(20))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Icon(Icons.vpn_key, size: 40.0, color: Colors.white),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 10),
-                    child: TextFormField(
-                      style: GoogleFonts.overpass(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                      obscureText: _isPasswordVisible,
-                      autocorrect: false,
-                      cursorWidth: 10,
-                      cursorHeight: 14,
-                      enableSuggestions: false,
-                      cursorRadius: const Radius.circular(20),
-                      cursorColor: Colors.white,
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                        label: Text(
-                          " Password",
-                          style: GoogleFonts.overpass(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w300),
-                        ),
-                        border: InputBorder.none,
+            child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              const Icon(Icons.vpn_key, size: 40.0, color: Colors.white),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(left: 10),
+                  child: TextFormField(
+                    style: GoogleFonts.overpass(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                    obscureText: _isPasswordVisible,
+                    autocorrect: false,
+                    cursorWidth: 10,
+                    cursorHeight: 14,
+                    enableSuggestions: false,
+                    cursorRadius: const Radius.circular(20),
+                    cursorColor: Colors.white,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                      label: Text(
+                        " Password",
+                        style: GoogleFonts.overpass(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w300),
                       ),
+                      border: InputBorder.none,
                     ),
                   ),
                 ),
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _isPasswordVisible = !_isPasswordVisible;
-                      });
-                    },
-                    icon: const Icon(Icons.remove_red_eye,
-                        size: 30.0, color: Colors.white))
-              ],
-            ))
+              ),
+              AnimatedIconButton(
+                size: normsizeIkony,
+                onPressed: () {
+                  setState(() {
+                    _isPasswordVisible = !_isPasswordVisible;
+                  });
+                },
+                duration: const Duration(milliseconds: 500),
+                splashColor: Colors.transparent,
+                icons: const <AnimatedIconItem>[
+                  AnimatedIconItem(
+                    icon: Icon(Icons.remove_red_eye_outlined,
+                        color: Colors.white),
+                  ),
+                  AnimatedIconItem(
+                    icon: Icon(Icons.remove_red_eye, color: Colors.white),
+                  ),
+                ],
+              )
+            ]))
       ]);
 
   Widget mediasilogin() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          AnimatedContainer(duration: const Duration(milliseconds: 500)),
-          ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  primary: const Color.fromARGB(210, 105, 30, 1),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30)),
-                  ),
-                  padding: const EdgeInsets.all(20)),
-              child: Center(
-                  child: Text(
-                "Login",
-                style:
-                    GoogleFonts.overpass(fontSize: 40.0, color: Colors.white),
-              ))),
+          AnimatedContainer(
+              curve: Curves.bounceIn,
+              duration: const Duration(milliseconds: 500),
+              child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      primary: const Color.fromARGB(210, 105, 30, 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.all(20)),
+                  child: Center(
+                      child: Text(
+                    "Login",
+                    style: GoogleFonts.overpass(
+                        fontSize: 40.0, color: Colors.white),
+                  ))))
         ],
       );
 
