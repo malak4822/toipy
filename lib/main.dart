@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -159,6 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget mediasilogin() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          AnimatedContainer(duration: const Duration(milliseconds: 500)),
           ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
@@ -168,13 +167,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         bottomLeft: Radius.circular(30),
                         bottomRight: Radius.circular(30)),
                   ),
-                  padding: const EdgeInsets.all(40)),
+                  padding: const EdgeInsets.all(20)),
               child: Center(
                   child: Text(
-                "Zaloguj się",
+                "Login",
                 style:
                     GoogleFonts.overpass(fontSize: 40.0, color: Colors.white),
-              )))
+              ))),
         ],
       );
 
