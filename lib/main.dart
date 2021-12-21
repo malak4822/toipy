@@ -1,4 +1,5 @@
 import 'package:animated_icon_button/animated_icon_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -33,11 +34,14 @@ class MyHomePage extends StatefulWidget {
 
 bool _isPasswordVisible = true;
 
+double wysokosc = 80;
+double secwysokosc = 80;
+double morewysokosc = 100;
+double moresecwysokosc = 100;
+
 double initialHeight = 150;
 double initialImageHeight = initialHeight;
 double expandedImageHeight = 180;
-
-double normsizeIkony = 40;
 
 class _MyHomePageState extends State<MyHomePage> {
   void poopAnimationIn() async {
@@ -65,13 +69,16 @@ class _MyHomePageState extends State<MyHomePage> {
       );
 //////////////////////////// POLA TEKSTOWE ///////////////////////////////////
   Widget fields() => Column(children: [
-        Container(
-            margin: const EdgeInsets.symmetric(horizontal: 30),
+        AnimatedContainer(
+            curve: Curves.ease,
+            height: wysokosc,
+            duration: const Duration(milliseconds: 300),
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.white, width: 1.5),
                 color: const Color.fromARGB(210, 105, 30, 1),
-                borderRadius: const BorderRadius.all(Radius.circular(20))),
+                borderRadius: const BorderRadius.all(Radius.circular(30))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -80,77 +87,89 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.only(left: 10),
-                    child: TextFormField(
-                      style: GoogleFonts.overpass(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                      cursorWidth: 10,
-                      cursorHeight: 14,
-                      cursorRadius: const Radius.circular(20),
-                      cursorColor: Colors.white,
-                      maxLines: 1,
-                      decoration: InputDecoration(
-                        label: Text(
-                          " E-mail",
-                          style: GoogleFonts.overpass(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.w300),
+                    child: Focus(
+                      onFocusChange: (hasFocus) {
+                        setState(() {
+                          if (wysokosc == morewysokosc) {
+                            wysokosc = wysokosc - 25;
+                          } else {
+                            wysokosc = morewysokosc;
+                          }
+                        });
+                      },
+                      child: TextFormField(
+                        keyboardType: TextInputType.emailAddress,
+                        style: GoogleFonts.overpass(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                        cursorWidth: 10,
+                        cursorHeight: 14,
+                        cursorRadius: const Radius.circular(20),
+                        cursorColor: Colors.white,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
                         ),
-                        border: InputBorder.none,
                       ),
                     ),
                   ),
                 ),
               ],
             )),
-        Container(
-            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+        AnimatedContainer(
+            height: secwysokosc,
+            curve: Curves.ease,
+            duration: (const Duration(milliseconds: 300)),
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.white, width: 1.5),
                 color: const Color.fromARGB(210, 105, 30, 1),
-                borderRadius: const BorderRadius.all(Radius.circular(20))),
+                borderRadius: const BorderRadius.all(Radius.circular(30))),
             child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              const Icon(Icons.vpn_key, size: 40.0, color: Colors.white),
+              const Icon(Icons.vpn_key, size: 35, color: Colors.white),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.only(left: 10),
-                  child: TextFormField(
-                    style: GoogleFonts.overpass(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                    obscureText: _isPasswordVisible,
-                    autocorrect: false,
-                    cursorWidth: 10,
-                    cursorHeight: 14,
-                    enableSuggestions: false,
-                    cursorRadius: const Radius.circular(20),
-                    cursorColor: Colors.white,
-                    maxLines: 1,
-                    decoration: InputDecoration(
-                      label: Text(
-                        " Password",
-                        style: GoogleFonts.overpass(
-                            color: Colors.white,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w300),
+                  child: Focus(
+                    onFocusChange: (a) {
+                      setState(() {
+                        if (secwysokosc == moresecwysokosc) {
+                          secwysokosc = secwysokosc - 25;
+                        } else {
+                          secwysokosc = moresecwysokosc;
+                        }
+                      });
+                    },
+                    child: TextFormField(
+                      style: GoogleFonts.overpass(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                      obscureText: _isPasswordVisible,
+                      autocorrect: false,
+                      cursorWidth: 10,
+                      cursorHeight: 14,
+                      enableSuggestions: false,
+                      cursorRadius: const Radius.circular(20),
+                      cursorColor: Colors.white,
+                      maxLines: 1,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
                       ),
-                      border: InputBorder.none,
                     ),
                   ),
                 ),
               ),
               AnimatedIconButton(
-                size: normsizeIkony,
+                animationDirection: const AnimationDirection.reverse(),
+                size: 32,
                 onPressed: () {
                   setState(() {
                     _isPasswordVisible = !_isPasswordVisible;
                   });
                 },
-                duration: const Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 400),
                 splashColor: Colors.transparent,
                 icons: const <AnimatedIconItem>[
                   AnimatedIconItem(
@@ -162,8 +181,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               )
-            ]))
+            ])),
+        const SizedBox(height: 10.0),
       ]);
+/////////////////////////// POLA LOGOWANIA SIĘ ///////////////////////////////
 
   Widget mediasilogin() => Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -174,16 +195,40 @@ class _MyHomePageState extends State<MyHomePage> {
               child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
+                      side: const BorderSide(color: Colors.white, width: 1.5),
                       primary: const Color.fromARGB(210, 105, 30, 1),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      padding: const EdgeInsets.all(20)),
+                      padding: const EdgeInsets.all(15)),
                   child: Center(
                       child: Text(
                     "Login",
                     style: GoogleFonts.overpass(
-                        fontSize: 40.0, color: Colors.white),
+                        fontSize: 30.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w200),
+                  )))),
+          const SizedBox(width: 10.0),
+          AnimatedContainer(
+              curve: Curves.bounceIn,
+              duration: const Duration(milliseconds: 500),
+              child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                      side: const BorderSide(color: Colors.white, width: 1.5),
+                      primary: const Color.fromARGB(210, 105, 30, 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.all(15)),
+                  child: Center(
+                      child: Text(
+                    "Register",
+                    style: GoogleFonts.overpass(
+                        fontSize: 30.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w200),
                   ))))
         ],
       );
@@ -193,15 +238,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Container(
         color: const Color.fromARGB(139, 69, 19, 1),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              logo(),
-              fields(),
-              mediasilogin(),
-            ],
-          ),
+        child: ListView(
+          children: <Widget>[
+            const SizedBox(height: 80),
+            logo(),
+            fields(),
+            mediasilogin(),
+          ],
         ),
       ),
     );
