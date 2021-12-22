@@ -1,52 +1,38 @@
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:poopy/registerPage.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Poppy App',
-      theme: ThemeData(
-        primarySwatch: Colors.brown,
-      ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
 bool _isPasswordVisible = true;
 
 double wysokosc = 80;
 double secwysokosc = 80;
+double thirdwysokosc = 80;
+
 double morewysokosc = 100;
 double moresecwysokosc = 100;
+double morethirdwysokosc = 100;
 
 double initialHeight = 150;
 double initialImageHeight = initialHeight;
 double expandedImageHeight = 180;
 
-double loginButtonVisibility = 0;
+double loginButtonVisibility = 0.01;
 double secloginButtonVisibility = 0;
 
-class _MyHomePageState extends State<MyHomePage> {
+class _RegisterPageState extends State<RegisterPage> {
+  void increasingLoginVis() {
+    setState(() {
+      loginButtonVisibility = loginButtonVisibility + 0.025;
+    });
+  }
+
   void poopAnimationIn() async {
     setState(() {
       initialImageHeight = expandedImageHeight;
@@ -57,14 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     });
   }
+////////////////////////////// LOGO ////////////////////////////
 
-  void increasingLoginVis() {
-    setState(() {
-      loginButtonVisibility = loginButtonVisibility + 0.025;
-    });
-  }
-
-//////////////////////////// LOGO ////////////////////////////////////////////
   Widget logo() => GestureDetector(
         onTap: () async {
           poopAnimationIn();
@@ -73,11 +53,65 @@ class _MyHomePageState extends State<MyHomePage> {
           height: initialImageHeight,
           curve: Curves.bounceInOut,
           duration: const Duration(milliseconds: 190),
-          child: Image.asset("img/logo1.png"),
+          child: Image.asset("img/logo.png"),
         ),
       );
-//////////////////////////// POLA TEKSTOWE ///////////////////////////////////
+
+//////////////////////// POLA TEKSTOWE DO WPISYWANIA /////////////////////////
   Widget fields() => Column(children: [
+        AnimatedContainer(
+            curve: Curves.ease,
+            height: thirdwysokosc,
+            duration: const Duration(milliseconds: 300),
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 1.5),
+                color: const Color.fromARGB(210, 105, 30, 1),
+                borderRadius: const BorderRadius.all(Radius.circular(30))),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                const Icon(Icons.person, size: 40.0, color: Colors.white),
+                Expanded(
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 10),
+                    child: Focus(
+                      onFocusChange: (a) {
+                        setState(() {
+                          if (thirdwysokosc == morethirdwysokosc) {
+                            thirdwysokosc = thirdwysokosc - 25;
+                          } else {
+                            thirdwysokosc = morethirdwysokosc;
+                          }
+                        });
+                      },
+                      child: TextFormField(
+                        onChanged: (b) {
+                          if (loginButtonVisibility >= 0.33) {
+                            return;
+                          } else {
+                            increasingLoginVis();
+                          }
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        style: GoogleFonts.overpass(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                        cursorWidth: 10,
+                        cursorHeight: 14,
+                        cursorRadius: const Radius.circular(20),
+                        cursorColor: Colors.white,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )),
         AnimatedContainer(
             curve: Curves.ease,
             height: wysokosc,
@@ -97,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Container(
                     margin: const EdgeInsets.only(left: 10),
                     child: Focus(
-                      onFocusChange: (hasFocus) {
+                      onFocusChange: (c) {
                         setState(() {
                           if (wysokosc == morewysokosc) {
                             wysokosc = wysokosc - 25;
@@ -107,8 +141,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                       child: TextFormField(
-                        onChanged: (a) {
-                          if (loginButtonVisibility >= 0.5) {
+                        onChanged: (d) {
+                          if (loginButtonVisibility >= 0.66) {
                             return;
                           } else {
                             increasingLoginVis();
@@ -148,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Container(
                   margin: const EdgeInsets.only(left: 10),
                   child: Focus(
-                    onFocusChange: (a) {
+                    onFocusChange: (e) {
                       setState(() {
                         if (secwysokosc == moresecwysokosc) {
                           secwysokosc = secwysokosc - 25;
@@ -158,8 +192,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     },
                     child: TextFormField(
-                      onChanged: (a) {
-                        if (loginButtonVisibility >= 0.96) {
+                      onChanged: (f) {
+                        if (loginButtonVisibility >= 0.975) {
                           return;
                         }
                         increasingLoginVis();
@@ -206,76 +240,42 @@ class _MyHomePageState extends State<MyHomePage> {
             ])),
         const SizedBox(height: 10.0),
       ]);
-/////////////////////////// POLA LOGOWANIA SIĘ ///////////////////////////////
 
-  Widget mediasilogin() => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          AnimatedContainer(
-              curve: Curves.bounceIn,
-              duration: const Duration(milliseconds: 500),
-              child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      side: const BorderSide(color: Colors.white, width: 1.5),
-                      primary: const Color.fromARGB(210, 105, 30, 1)
-                          .withOpacity(loginButtonVisibility),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: const EdgeInsets.all(15)),
-                  child: Center(
-                      child: Text(
-                    "Login",
-                    style: GoogleFonts.overpass(
-                        fontSize: 30.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w200),
-                  )))),
-          const SizedBox(width: 10.0),
-          AnimatedContainer(
-              curve: Curves.bounceIn,
-              duration: const Duration(milliseconds: 500),
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegisterPage()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      side: const BorderSide(color: Colors.white, width: 1.5),
-                      primary:
-                          const Color.fromARGB(210, 105, 30, 1).withOpacity(1),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: const EdgeInsets.all(15)),
-                  child: Center(
-                      child: Text(
-                    "Register",
-                    style: GoogleFonts.overpass(
-                        fontSize: 30.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w200),
-                  ))))
-        ],
-      );
+//////////////////////// POLE REJESTRACJI I PRZYCISK //////////////////////
+
+  Widget registerButton() => Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+      child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+              side: const BorderSide(color: Colors.white, width: 1.5),
+              primary: const Color.fromARGB(210, 105, 30, 1)
+                  .withOpacity(loginButtonVisibility),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: const EdgeInsets.all(20)),
+          child: Center(
+              child: Text(
+            "Zarejestruj się",
+            style: GoogleFonts.overpass(
+                fontSize: 30.0,
+                color: Colors.white,
+                fontWeight: FontWeight.w200),
+          ))));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: const Color.fromARGB(139, 69, 19, 1),
-        child: ListView(
-          children: <Widget>[
-            const SizedBox(height: 80),
-            logo(),
-            fields(),
-            mediasilogin(),
-          ],
-        ),
+        body: Container(
+      color: const Color.fromARGB(139, 69, 19, 1),
+      child: ListView(
+        children: <Widget>[
+          const SizedBox(height: 80),
+          fields(),
+          registerButton(),
+        ],
       ),
-    );
+    ));
   }
 }
