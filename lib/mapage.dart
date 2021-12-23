@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class mapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Google Maps Demo',
       home: MapSample(),
     );
@@ -29,7 +31,16 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.green),
+      appBar: AppBar(
+        toolbarHeight: 80,
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(210, 105, 30, 1),
+        title: Text(
+          "poopy",
+          style: GoogleFonts.overpass(
+              fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: GoogleMap(
         mapType: MapType.hybrid,
         initialCameraPosition: _kGooglePlex,
