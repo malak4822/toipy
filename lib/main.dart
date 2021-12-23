@@ -1,6 +1,7 @@
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:poopy/mapage.dart';
 import 'package:poopy/registerPage.dart';
 
 void main() {
@@ -34,34 +35,42 @@ class MyHomePage extends StatefulWidget {
 
 bool _isPasswordVisible = true;
 
-double wysokosc = 80;
-double secwysokosc = 80;
-double morewysokosc = 100;
-double moresecwysokosc = 100;
+double _wysokosc = 80;
+double _secwysokosc = 80;
+double _morewysokosc = 100;
+double _moresecwysokosc = 100;
 
-double initialHeight = 150;
-double initialImageHeight = initialHeight;
-double expandedImageHeight = 180;
+double _initialHeight = 150;
+double _initialImageHeight = _initialHeight;
+double _expandedImageHeight = 180;
 
-double loginButtonVisibility = 0;
-double secloginButtonVisibility = 0;
+double _loginButtonVisibility = 0;
+double _borderwidth = 0.2;
 
 class _MyHomePageState extends State<MyHomePage> {
   void poopAnimationIn() async {
     setState(() {
-      initialImageHeight = expandedImageHeight;
+      _initialImageHeight = _expandedImageHeight;
     });
     await Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
-        initialImageHeight = initialHeight;
+        _initialImageHeight = _initialHeight;
       });
     });
   }
 
   void increasingLoginVis() {
     setState(() {
-      loginButtonVisibility = loginButtonVisibility + 0.025;
+      _loginButtonVisibility = _loginButtonVisibility + 0.025;
     });
+  }
+
+  void increasingBorder() {
+    if (_borderwidth >= 2) {
+      return;
+    } else {
+      _borderwidth = _borderwidth + 0.05;
+    }
   }
 
 //////////////////////////// LOGO ////////////////////////////////////////////
@@ -70,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
           poopAnimationIn();
         },
         child: AnimatedContainer(
-          height: initialImageHeight,
+          height: _initialImageHeight,
           curve: Curves.bounceInOut,
           duration: const Duration(milliseconds: 190),
           child: Image.asset("img/logo1.png"),
@@ -80,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget fields() => Column(children: [
         AnimatedContainer(
             curve: Curves.ease,
-            height: wysokosc,
+            height: _wysokosc,
             duration: const Duration(milliseconds: 300),
             margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -99,19 +108,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Focus(
                       onFocusChange: (hasFocus) {
                         setState(() {
-                          if (wysokosc == morewysokosc) {
-                            wysokosc = wysokosc - 25;
+                          if (_wysokosc == _morewysokosc) {
+                            _wysokosc = _wysokosc - 25;
                           } else {
-                            wysokosc = morewysokosc;
+                            _wysokosc = _morewysokosc;
                           }
                         });
                       },
                       child: TextFormField(
                         onChanged: (a) {
-                          if (loginButtonVisibility >= 0.5) {
+                          if (_loginButtonVisibility >= 0.5) {
                             return;
                           } else {
                             increasingLoginVis();
+                            increasingBorder();
                           }
                         },
                         keyboardType: TextInputType.emailAddress,
@@ -133,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             )),
         AnimatedContainer(
-            height: secwysokosc,
+            height: _secwysokosc,
             curve: Curves.ease,
             duration: (const Duration(milliseconds: 300)),
             margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
@@ -150,19 +160,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Focus(
                     onFocusChange: (a) {
                       setState(() {
-                        if (secwysokosc == moresecwysokosc) {
-                          secwysokosc = secwysokosc - 25;
+                        if (_secwysokosc == _moresecwysokosc) {
+                          _secwysokosc = _secwysokosc - 25;
                         } else {
-                          secwysokosc = moresecwysokosc;
+                          _secwysokosc = _moresecwysokosc;
                         }
                       });
                     },
                     child: TextFormField(
                       onChanged: (a) {
-                        if (loginButtonVisibility >= 0.96) {
+                        if (_loginButtonVisibility >= 0.96) {
                           return;
                         }
                         increasingLoginVis();
+                        increasingBorder();
                       },
                       style: GoogleFonts.overpass(
                           color: Colors.white,
@@ -215,11 +226,17 @@ class _MyHomePageState extends State<MyHomePage> {
               curve: Curves.bounceIn,
               duration: const Duration(milliseconds: 500),
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const mapPage()));
+                  },
                   style: ElevatedButton.styleFrom(
-                      side: const BorderSide(color: Colors.white, width: 1.5),
+                      side:
+                          BorderSide(color: Colors.white, width: _borderwidth),
                       primary: const Color.fromARGB(210, 105, 30, 1)
-                          .withOpacity(loginButtonVisibility),
+                          .withOpacity(_loginButtonVisibility),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -244,7 +261,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             builder: (context) => const RegisterPage()));
                   },
                   style: ElevatedButton.styleFrom(
-                      side: const BorderSide(color: Colors.white, width: 1.5),
+                      side: const BorderSide(color: Colors.white, width: 2),
                       primary:
                           const Color.fromARGB(210, 105, 30, 1).withOpacity(1),
                       shape: RoundedRectangleBorder(

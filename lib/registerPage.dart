@@ -1,6 +1,7 @@
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:poopy/mapage.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -66,13 +67,13 @@ class _RegisterPageState extends State<RegisterPage> {
             margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 1.5),
+                border: Border.all(color: Colors.greenAccent, width: 1.5),
                 color: const Color.fromARGB(210, 105, 30, 1),
                 borderRadius: const BorderRadius.all(Radius.circular(30))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const Icon(Icons.person, size: 40.0, color: Colors.white),
+                const Icon(Icons.person, size: 40.0, color: Colors.greenAccent),
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.only(left: 10),
@@ -94,7 +95,6 @@ class _RegisterPageState extends State<RegisterPage> {
                             increasingLoginVis();
                           }
                         },
-                        keyboardType: TextInputType.emailAddress,
                         style: GoogleFonts.overpass(
                             color: Colors.white,
                             fontSize: 20,
@@ -102,7 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         cursorWidth: 10,
                         cursorHeight: 14,
                         cursorRadius: const Radius.circular(20),
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.greenAccent,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
@@ -119,14 +119,14 @@ class _RegisterPageState extends State<RegisterPage> {
             margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 1.5),
+                border: Border.all(color: Colors.greenAccent, width: 1.5),
                 color: const Color.fromARGB(210, 105, 30, 1),
                 borderRadius: const BorderRadius.all(Radius.circular(30))),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const Icon(Icons.email_outlined,
-                    size: 40.0, color: Colors.white),
+                    size: 40.0, color: Colors.greenAccent),
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.only(left: 10),
@@ -156,7 +156,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         cursorWidth: 10,
                         cursorHeight: 14,
                         cursorRadius: const Radius.circular(20),
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.greenAccent,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
@@ -173,11 +173,11 @@ class _RegisterPageState extends State<RegisterPage> {
             margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.white, width: 1.5),
+                border: Border.all(color: Colors.greenAccent, width: 1.5),
                 color: const Color.fromARGB(210, 105, 30, 1),
                 borderRadius: const BorderRadius.all(Radius.circular(30))),
             child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              const Icon(Icons.vpn_key, size: 35, color: Colors.white),
+              const Icon(Icons.vpn_key, size: 35, color: Colors.greenAccent),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.only(left: 10),
@@ -208,7 +208,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       cursorHeight: 14,
                       enableSuggestions: false,
                       cursorRadius: const Radius.circular(20),
-                      cursorColor: Colors.white,
+                      cursorColor: Colors.greenAccent,
                       maxLines: 1,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
@@ -230,10 +230,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 icons: const <AnimatedIconItem>[
                   AnimatedIconItem(
                     icon: Icon(Icons.remove_red_eye_outlined,
-                        color: Colors.white),
+                        color: Colors.greenAccent),
                   ),
                   AnimatedIconItem(
-                    icon: Icon(Icons.remove_red_eye, color: Colors.white),
+                    icon: Icon(Icons.remove_red_eye, color: Colors.greenAccent),
                   ),
                 ],
               )
@@ -246,9 +246,12 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget registerButton() => Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const mapPage()));
+          },
           style: ElevatedButton.styleFrom(
-              side: const BorderSide(color: Colors.white, width: 1.5),
+              side: const BorderSide(color: Colors.greenAccent, width: 1.5),
               primary: const Color.fromARGB(210, 105, 30, 1)
                   .withOpacity(loginButtonVisibility),
               shape: RoundedRectangleBorder(
@@ -260,7 +263,7 @@ class _RegisterPageState extends State<RegisterPage> {
             "Zarejestruj się",
             style: GoogleFonts.overpass(
                 fontSize: 30.0,
-                color: Colors.white,
+                color: Colors.greenAccent,
                 fontWeight: FontWeight.w200),
           ))));
 
@@ -272,6 +275,7 @@ class _RegisterPageState extends State<RegisterPage> {
       child: ListView(
         children: <Widget>[
           const SizedBox(height: 80),
+          logo(),
           fields(),
           registerButton(),
         ],
