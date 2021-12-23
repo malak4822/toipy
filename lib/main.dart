@@ -227,10 +227,8 @@ class _MyHomePageState extends State<MyHomePage> {
               duration: const Duration(milliseconds: 500),
               child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const mapPage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => mapPage()));
                   },
                   style: ElevatedButton.styleFrom(
                       side:

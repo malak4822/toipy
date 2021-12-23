@@ -247,8 +247,8 @@ class _RegisterPageState extends State<RegisterPage> {
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
       child: ElevatedButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const mapPage()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => mapPage()));
           },
           style: ElevatedButton.styleFrom(
               side: const BorderSide(color: Colors.greenAccent, width: 1.5),
