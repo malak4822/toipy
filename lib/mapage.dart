@@ -84,9 +84,6 @@ class MapSampleState extends State<MapSample> {
             child: Container(
               width: 40,
               height: MediaQuery.of(context).size.height,
-              child: PageView(
-                children: [MapSample(), SomePage()],
-              ),
             ),
           ),
           Align(
@@ -94,9 +91,6 @@ class MapSampleState extends State<MapSample> {
             child: Container(
               width: 40,
               height: MediaQuery.of(context).size.height,
-              child: PageView(
-                children: [MapSample(), FriendsPage()],
-              ),
             ),
           ),
         ],
