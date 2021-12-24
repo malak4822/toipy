@@ -248,7 +248,7 @@ class _RegisterPageState extends State<RegisterPage> {
       child: ElevatedButton(
           onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => mapPage()));
+                context, MaterialPageRoute(builder: (context) => MapSample()));
           },
           style: ElevatedButton.styleFrom(
               side: const BorderSide(color: Colors.greenAccent, width: 1.5),

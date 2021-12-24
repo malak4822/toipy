@@ -1,42 +1,30 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:poopy/friendspage.dart';
+import 'package:poopy/registerPage.dart';
 import 'package:poopy/somepage.dart';
 
-class mapPage extends StatelessWidget {
-  final controller = PageController(initialPage: 1);
-  @override
-  Widget build(BuildContext context) {
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Google Maps Demo',
-      home: MapSample(),
-    );
-    return PageView(controller: controller, children: [
-      const FriendsPage(),
-      MapSample(),
-      const SomePage(),
-    ]);
-  }
-}
-
+///   return PageView(controller: controller, children: []);
 class MapSample extends StatefulWidget {
   @override
   State<MapSample> createState() => MapSampleState();
 }
 
+int _selectedIndex = 1;
+
 class MapSampleState extends State<MapSample> {
   final Completer<GoogleMapController> _controller = Completer();
 
+  final PageController _pageController = PageController(initialPage: 0);
+
   final CameraPosition _kGooglePlex = const CameraPosition(
     target: LatLng(52.217034, 20.987390),
-    zoom: 14.4746,
+    zoom: 19,
   );
-
-  int _selectedIndex = 0;
 
   void _onItemTap(int index) {
     setState(() {
@@ -50,23 +38,25 @@ class MapSampleState extends State<MapSample> {
       bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-                backgroundColor: Colors.teal),
+              icon: Icon(Icons.person),
+              label: 'Znajomi',
+              backgroundColor: Color.fromARGB(190, 105, 30, 1),
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-                backgroundColor: Colors.cyan),
+              icon: FaIcon(FontAwesomeIcons.map),
+              label: 'Mapa',
+              backgroundColor: Color.fromARGB(210, 105, 30, 1),
+            ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-              backgroundColor: Colors.lightBlue,
+              icon: FaIcon(FontAwesomeIcons.crown),
+              label: 'Ranking',
+              backgroundColor: Color.fromARGB(190, 105, 30, 1),
             ),
           ],
           type: BottomNavigationBarType.shifting,
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.grey,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.white,
           iconSize: 40,
           onTap: _onItemTap,
           elevation: 5),
@@ -80,12 +70,36 @@ class MapSampleState extends State<MapSample> {
               fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
-      body: GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+      body: Stack(
+        children: [
+          GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              width: 40,
+              height: MediaQuery.of(context).size.height,
+              child: PageView(
+                children: [MapSample(), SomePage()],
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              width: 40,
+              height: MediaQuery.of(context).size.height,
+              child: PageView(
+                children: [MapSample(), FriendsPage()],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

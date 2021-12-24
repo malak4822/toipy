@@ -228,7 +228,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => mapPage()));
+                        MaterialPageRoute(builder: (context) => MapSample()));
                   },
                   style: ElevatedButton.styleFrom(
                       side:
