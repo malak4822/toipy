@@ -116,6 +116,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                       child: TextFormField(
+                        onEditingComplete: () =>
+                            {loginButtonVisibility = 0.5, _borderwidth = 0.5},
+                        onFieldSubmitted: (wielkoscborderu) =>
+                            {loginButtonVisibility = 0.5, _borderwidth = 0.5},
                         onChanged: (a) {
                           if (_loginButtonVisibility >= 0.5) {
                             return;

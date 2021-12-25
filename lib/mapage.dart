@@ -5,11 +5,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:poopy/friendspage.dart';
-import 'package:poopy/registerPage.dart';
 import 'package:poopy/somepage.dart';
 
 ///   return PageView(controller: controller, children: []);
 class MapSample extends StatefulWidget {
+  const MapSample({Key? key}) : super(key: key);
+
   @override
   State<MapSample> createState() => MapSampleState();
 }
@@ -34,6 +35,18 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
+    final screens = [
+      FriendsPage(),
+      GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: _kGooglePlex,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+      ),
+      SomePage()
+    ];
+
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
@@ -57,9 +70,10 @@ class MapSampleState extends State<MapSample> {
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.black,
           unselectedItemColor: Colors.white,
-          iconSize: 40,
+          showSelectedLabels: false,
+          iconSize: 38,
           onTap: _onItemTap,
-          elevation: 5),
+          elevation: 0),
       appBar: AppBar(
         toolbarHeight: 80,
         centerTitle: true,
@@ -70,31 +84,7 @@ class MapSampleState extends State<MapSample> {
               fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Stack(
-        children: [
-          GoogleMap(
-            mapType: MapType.normal,
-            initialCameraPosition: _kGooglePlex,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-            },
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              width: 40,
-              height: MediaQuery.of(context).size.height,
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              width: 40,
-              height: MediaQuery.of(context).size.height,
-            ),
-          ),
-        ],
-      ),
+      body: screens[_selectedIndex],
     );
   }
 }

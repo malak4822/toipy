@@ -11,7 +11,13 @@ class _FriendsPageState extends State<FriendsPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue,
+      color: const Color.fromARGB(190, 105, 30, 1),
+      child: const Center(
+          child: Icon(
+        Icons.person,
+        color: Colors.white,
+        size: 120,
+      )),
     );
   }
 }
