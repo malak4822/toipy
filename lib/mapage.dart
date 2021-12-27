@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -36,7 +38,7 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     final screens = [
-      FriendsPage(),
+      const FriendsPage(),
       GoogleMap(
         mapType: MapType.normal,
         initialCameraPosition: _kGooglePlex,
@@ -44,11 +46,38 @@ class MapSampleState extends State<MapSample> {
           _controller.complete(controller);
         },
       ),
-      SomePage()
+      const SomePage()
     ];
 
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Container(
+          margin: const EdgeInsets.fromLTRB(0, 0, 0, 55),
+          width: 80,
+          height: 80,
+          child: SpeedDial(
+            foregroundColor: Colors.white,
+            overlayColor: Colors.white10,
+            elevation: 0,
+            backgroundColor: const Color.fromARGB(255, 105, 30, 0),
+            childrenButtonSize: (const Size.square(100)),
+            direction: SpeedDialDirection.left,
+            child: const Icon(
+              Icons.add,
+              size: 48,
+            ),
+            children: [
+              SpeedDialChild(
+                backgroundColor: const Color.fromARGB(190, 105, 30, 1),
+                child: const Icon(
+                  Icons.ac_unit_sharp,
+                  size: 40,
+                ),
+              ),
+            ],
+          )),
       bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Color.fromARGB(255, 105, 30, 1),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
