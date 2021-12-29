@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:poopy/mapage.dart';
 import 'package:poopy/registerPage.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -283,18 +284,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: const Color.fromARGB(139, 69, 19, 1),
-        child: ListView(
-          children: <Widget>[
-            const SizedBox(height: 80),
-            logo(),
-            fields(),
-            mediasilogin(),
-          ],
-        ),
-      ),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(
+            value: null,
+          )
+        ],
+        child: Scaffold(
+          body: Container(
+            color: const Color.fromARGB(139, 69, 19, 1),
+            child: ListView(
+              children: <Widget>[
+                const SizedBox(height: 80),
+                logo(),
+                fields(),
+                mediasilogin(),
+              ],
+            ),
+          ),
+        ));
   }
 }
