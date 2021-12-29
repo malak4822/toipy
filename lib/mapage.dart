@@ -50,59 +50,69 @@ class MapSampleState extends State<MapSample> {
     ];
 
     return Scaffold(
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+            border: Border(top: BorderSide(color: Colors.white, width: 2))),
+        child: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Znajomi',
+                backgroundColor: Color.fromARGB(190, 105, 30, 1),
+              ),
+              BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.map),
+                label: 'Mapa',
+                backgroundColor: Color.fromARGB(210, 105, 30, 1),
+              ),
+              BottomNavigationBarItem(
+                icon: FaIcon(FontAwesomeIcons.crown),
+                label: 'Ranking',
+                backgroundColor: Color.fromARGB(190, 105, 30, 1),
+              ),
+            ],
+            type: BottomNavigationBarType.shifting,
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.white,
+            showSelectedLabels: false,
+            iconSize: 38,
+            onTap: _onItemTap,
+            elevation: 0),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
+      floatingActionButton: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Container(
           margin: const EdgeInsets.fromLTRB(0, 0, 0, 55),
           width: 80,
           height: 80,
-          child: SpeedDial(
-            foregroundColor: Colors.white,
-            overlayColor: Colors.white10,
-            elevation: 0,
-            backgroundColor: const Color.fromARGB(255, 105, 30, 0),
-            childrenButtonSize: (const Size.square(100)),
-            direction: SpeedDialDirection.left,
-            child: const Icon(
-              Icons.add,
-              size: 48,
-            ),
-            children: [
-              SpeedDialChild(
-                backgroundColor: const Color.fromARGB(190, 105, 30, 1),
-                child: const Icon(
-                  Icons.ac_unit_sharp,
-                  size: 40,
-                ),
+          child: SizedBox(
+            height: 80,
+            child: SpeedDial(
+              foregroundColor: Colors.white,
+              overlayColor: Colors.white10,
+              elevation: 0,
+              backgroundColor: const Color.fromARGB(255, 105, 30, 0),
+              childrenButtonSize: (const Size.square(100)),
+              direction: SpeedDialDirection.left,
+              child: const Icon(
+                Icons.add,
+                size: 48,
               ),
-            ],
-          )),
-      bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color.fromARGB(255, 105, 30, 1),
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Znajomi',
-              backgroundColor: Color.fromARGB(190, 105, 30, 1),
+              children: [
+                SpeedDialChild(
+                  backgroundColor: const Color.fromARGB(190, 105, 30, 1),
+                  child: const Icon(
+                    Icons.ac_unit_sharp,
+                    size: 40,
+                  ),
+                ),
+              ],
             ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.map),
-              label: 'Mapa',
-              backgroundColor: Color.fromARGB(210, 105, 30, 1),
-            ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.crown),
-              label: 'Ranking',
-              backgroundColor: Color.fromARGB(190, 105, 30, 1),
-            ),
-          ],
-          type: BottomNavigationBarType.shifting,
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.white,
-          showSelectedLabels: false,
-          iconSize: 38,
-          onTap: _onItemTap,
-          elevation: 0),
+          ),
+        ),
+      ),
       appBar: AppBar(
         toolbarHeight: 80,
         centerTitle: true,
