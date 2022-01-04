@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:math';
 
+import 'package:circular_menu/circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -39,12 +41,52 @@ class MapSampleState extends State<MapSample> {
   Widget build(BuildContext context) {
     final screens = [
       const FriendsPage(),
-      GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+      Stack(
+        children: [
+          GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+          ),
+          CircularMenu(
+            toggleButtonBoxShadow: [],
+            alignment: Alignment.bottomCenter,
+            toggleButtonMargin: 30,
+            startingAngleInRadian: 1.25 * pi,
+            endingAngleInRadian: 1.75 * pi,
+            toggleButtonPadding: 20,
+            toggleButtonSize: 40,
+            toggleButtonColor: Colors.brown,
+            items: [
+              CircularMenuItem(
+                  boxShadow: [],
+                  color: Color.fromARGB(190, 105, 30, 1),
+                  iconSize: 50,
+                  icon: Icons.control_point,
+                  onTap: () {
+                    //callback
+                  }),
+              CircularMenuItem(
+                  boxShadow: [],
+                  color: Color.fromARGB(190, 105, 30, 1),
+                  iconSize: 50,
+                  icon: Icons.control_point,
+                  onTap: () {
+                    //callback
+                  }),
+              CircularMenuItem(
+                  boxShadow: [],
+                  color: Color.fromARGB(190, 105, 30, 1),
+                  iconSize: 50,
+                  icon: Icons.control_point,
+                  onTap: () {
+                    //callback
+                  }),
+            ],
+          ),
+        ],
       ),
       const SomePage()
     ];
@@ -79,39 +121,6 @@ class MapSampleState extends State<MapSample> {
             iconSize: 38,
             onTap: _onItemTap,
             elevation: 0),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Container(
-          margin: const EdgeInsets.fromLTRB(0, 0, 0, 55),
-          width: 80,
-          height: 80,
-          child: SizedBox(
-            height: 80,
-            child: SpeedDial(
-              foregroundColor: Colors.white,
-              overlayColor: Colors.white10,
-              elevation: 0,
-              backgroundColor: const Color.fromARGB(255, 105, 30, 0),
-              childrenButtonSize: (const Size.square(100)),
-              direction: SpeedDialDirection.left,
-              child: const Icon(
-                Icons.add,
-                size: 48,
-              ),
-              children: [
-                SpeedDialChild(
-                  backgroundColor: const Color.fromARGB(190, 105, 30, 1),
-                  child: const Icon(
-                    Icons.ac_unit_sharp,
-                    size: 40,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
       ),
       appBar: AppBar(
         toolbarHeight: 80,
