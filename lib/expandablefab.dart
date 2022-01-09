@@ -22,12 +22,12 @@ class _ExpandingActionButton extends StatelessWidget {
       animation: progress,
       builder: (context, child) {
         final offset = Offset.fromDirection(
-          directionInDegrees * (pi / 180.0),
+          directionInDegrees * (pi / 90.0),
           progress.value * maxDistance,
         );
         return Positioned(
-          right: 10.0 + offset.dx,
-          bottom: 10.0 + offset.dy,
+          left: offset.dx + MediaQuery.of(context).size.width / 2.5,
+          bottom: 60 + offset.dy,
           child: Transform.rotate(
             angle: (1.0 - progress.value) * pi / 2,
             child: child!,
@@ -88,7 +88,7 @@ class _ExpandableFabState extends State<ExpandableFab>
   Widget build(BuildContext context) {
     return SizedBox.expand(
       child: Stack(
-        alignment: Alignment.bottomRight,
+        alignment: const Alignment(0, 0.85),
         clipBehavior: Clip.none,
         children: [
           _buildTapToCloseFab(),
@@ -101,8 +101,7 @@ class _ExpandableFabState extends State<ExpandableFab>
 
   Widget _buildTapToCloseFab() {
     return SizedBox(
-      width: 56.0,
-      height: 56.0,
+      height: 80.0,
       child: Center(
         child: Material(
           shape: const CircleBorder(),
@@ -156,11 +155,16 @@ class _ExpandableFabState extends State<ExpandableFab>
         curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
         child: AnimatedOpacity(
           opacity: _open ? 0.0 : 1.0,
-          curve: const Interval(0.25, 1.0, curve: Curves.easeInOut),
+          curve: const Interval(0.5, 1.0, curve: Curves.easeInOut),
           duration: const Duration(milliseconds: 250),
-          child: FloatingActionButton(
-            onPressed: _toggle,
-            child: const Icon(Icons.create),
+          child: SizedBox(
+            height: 90,
+            width: 90,
+            child: FloatingActionButton(
+              backgroundColor: const Color.fromARGB(255, 105, 30, 1),
+              onPressed: _toggle,
+              child: const Icon(Icons.add),
+            ),
           ),
         ),
       ),
@@ -202,7 +206,7 @@ class ActionButton extends StatelessWidget {
       shape: const CircleBorder(),
       clipBehavior: Clip.antiAlias,
       color: theme.colorScheme.secondary,
-      elevation: 4.0,
+      elevation: 24.0,
       child: IconTheme.merge(
         data: theme.accentIconTheme,
         child: IconButton(

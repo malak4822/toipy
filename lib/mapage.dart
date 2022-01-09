@@ -18,6 +18,7 @@ class MapSample extends StatefulWidget {
 }
 
 int _selectedIndex = 1;
+bool _isMenuShown = true;
 
 class MapSampleState extends State<MapSample> {
   final Completer<GoogleMapController> _controller = Completer();
@@ -26,13 +27,17 @@ class MapSampleState extends State<MapSample> {
 
   final CameraPosition _kGooglePlex = const CameraPosition(
     target: LatLng(52.217034, 20.987390),
-    zoom: 19,
+    zoom: 9,
   );
 
   void _onItemTap(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  void buttonDissapearing() {
+    setState(() {});
   }
 
   @override
@@ -56,38 +61,46 @@ class MapSampleState extends State<MapSample> {
 
     final screens = [
       const FriendsPage(),
-      Stack(
-        children: [
-          GoogleMap(
-            mapType: MapType.normal,
-            initialCameraPosition: _kGooglePlex,
-            onMapCreated: (GoogleMapController controller) {
-              _controller.complete(controller);
-            },
-          ),
-        ],
+      GoogleMap(
+        mapType: MapType.normal,
+        initialCameraPosition: _kGooglePlex,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
       ),
       const SomePage()
     ];
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: ExpandableFab(
-        distance: 80.0,
-        children: [
-          ActionButton(
-            onPressed: () => _showAction(context, 0),
-            icon: const Icon(Icons.format_size),
-          ),
-          ActionButton(
-            onPressed: () => _showAction(context, 1),
-            icon: const Icon(Icons.insert_photo),
-          ),
-          ActionButton(
-            onPressed: () => _showAction(context, 2),
-            icon: const Icon(Icons.videocam),
-          ),
-        ],
+      floatingActionButton: Visibility(
+        visible: _isMenuShown,
+        child: ExpandableFab(
+          distance: 80.0,
+          children: [
+            SizedBox(
+                width: 80,
+                height: 80,
+                child: ActionButton(
+                  onPressed: () => _showAction(context, 0),
+                  icon: const Icon(Icons.format_size),
+                )),
+            SizedBox(
+                width: 80,
+                height: 80,
+                child: ActionButton(
+                  onPressed: () => _showAction(context, 1),
+                  icon: const Icon(Icons.insert_photo),
+                )),
+            SizedBox(
+                width: 80,
+                height: 80,
+                child: ActionButton(
+                  onPressed: () => _showAction(context, 2),
+                  icon: const Icon(Icons.videocam),
+                )),
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
@@ -116,7 +129,10 @@ class MapSampleState extends State<MapSample> {
             unselectedItemColor: Colors.white,
             showSelectedLabels: false,
             iconSize: 38,
-            onTap: _onItemTap,
+            onTap: (int index) {
+              buttonDissapearing();
+              _onItemTap(index);
+            },
             elevation: 0),
       ),
       appBar: AppBar(
