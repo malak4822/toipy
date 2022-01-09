@@ -1,17 +1,15 @@
 import 'dart:async';
-import 'dart:math';
 
-import 'package:circular_menu/circular_menu.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:poopy/expandablefab.dart';
 import 'package:poopy/friendspage.dart';
 import 'package:poopy/somepage.dart';
 
-///   return PageView(controller: controller, children: []);
+@immutable
+@immutable
 class MapSample extends StatefulWidget {
   const MapSample({Key? key}) : super(key: key);
 
@@ -39,6 +37,23 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
+    void _showAction(BuildContext context, int index) {
+      showDialog<void>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: const Text("jd"),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('CLOSE'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     final screens = [
       const FriendsPage(),
       Stack(
@@ -50,48 +65,30 @@ class MapSampleState extends State<MapSample> {
               _controller.complete(controller);
             },
           ),
-          CircularMenu(
-            toggleButtonBoxShadow: [],
-            alignment: Alignment.bottomCenter,
-            toggleButtonMargin: 30,
-            startingAngleInRadian: 1.25 * pi,
-            endingAngleInRadian: 1.75 * pi,
-            toggleButtonPadding: 20,
-            toggleButtonSize: 40,
-            toggleButtonColor: Colors.brown,
-            items: [
-              CircularMenuItem(
-                  boxShadow: [],
-                  color: Color.fromARGB(190, 105, 30, 1),
-                  iconSize: 50,
-                  icon: Icons.control_point,
-                  onTap: () {
-                    //callback
-                  }),
-              CircularMenuItem(
-                  boxShadow: [],
-                  color: Color.fromARGB(190, 105, 30, 1),
-                  iconSize: 50,
-                  icon: Icons.control_point,
-                  onTap: () {
-                    //callback
-                  }),
-              CircularMenuItem(
-                  boxShadow: [],
-                  color: Color.fromARGB(190, 105, 30, 1),
-                  iconSize: 50,
-                  icon: Icons.control_point,
-                  onTap: () {
-                    //callback
-                  }),
-            ],
-          ),
         ],
       ),
       const SomePage()
     ];
 
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: ExpandableFab(
+        distance: 80.0,
+        children: [
+          ActionButton(
+            onPressed: () => _showAction(context, 0),
+            icon: const Icon(Icons.format_size),
+          ),
+          ActionButton(
+            onPressed: () => _showAction(context, 1),
+            icon: const Icon(Icons.insert_photo),
+          ),
+          ActionButton(
+            onPressed: () => _showAction(context, 2),
+            icon: const Icon(Icons.videocam),
+          ),
+        ],
+      ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
             border: Border(top: BorderSide(color: Colors.white, width: 2))),
