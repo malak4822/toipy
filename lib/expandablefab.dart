@@ -27,7 +27,7 @@ class _ExpandingActionButton extends StatelessWidget {
         );
         return Positioned(
           left: offset.dx + MediaQuery.of(context).size.width / 2.5,
-          bottom: 60 + offset.dy,
+          bottom: offset.dy + 75,
           child: Transform.rotate(
             angle: (1.0 - progress.value) * pi / 2,
             child: child!,
@@ -101,16 +101,17 @@ class _ExpandableFabState extends State<ExpandableFab>
 
   Widget _buildTapToCloseFab() {
     return SizedBox(
-      height: 80.0,
+      height: 120.0,
       child: Center(
         child: Material(
-          shape: const CircleBorder(),
+          shape: const CircleBorder(
+              side: BorderSide(
+                  color: Color.fromARGB(255, 129, 66, 44), width: 5)),
           clipBehavior: Clip.antiAlias,
-          elevation: 4.0,
           child: InkWell(
             onTap: _toggle,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(20.0),
               child: Icon(
                 Icons.close,
                 color: Theme.of(context).primaryColor,
@@ -145,7 +146,7 @@ class _ExpandableFabState extends State<ExpandableFab>
     return IgnorePointer(
       ignoring: _open,
       child: AnimatedContainer(
-        transformAlignment: Alignment.center,
+        transformAlignment: Alignment.topCenter,
         transform: Matrix4.diagonal3Values(
           _open ? 0.7 : 1.0,
           _open ? 0.7 : 1.0,
@@ -161,9 +162,16 @@ class _ExpandableFabState extends State<ExpandableFab>
             height: 90,
             width: 90,
             child: FloatingActionButton(
-              backgroundColor: const Color.fromARGB(255, 105, 30, 1),
-              onPressed: _toggle,
-              child: const Icon(Icons.add),
+              elevation: 0,
+              splashColor: Colors.transparent,
+              backgroundColor: const Color.fromARGB(255, 129, 66, 44),
+              onPressed: () {
+                _toggle();
+              },
+              child: const Icon(
+                Icons.add,
+                size: 50,
+              ),
             ),
           ),
         ),
@@ -204,9 +212,7 @@ class ActionButton extends StatelessWidget {
     final theme = Theme.of(context);
     return Material(
       shape: const CircleBorder(),
-      clipBehavior: Clip.antiAlias,
-      color: theme.colorScheme.secondary,
-      elevation: 24.0,
+      color: const Color.fromARGB(240, 115, 40, 20),
       child: IconTheme.merge(
         data: theme.accentIconTheme,
         child: IconButton(

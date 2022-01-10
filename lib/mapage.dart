@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -36,8 +37,16 @@ class MapSampleState extends State<MapSample> {
     });
   }
 
-  void buttonDissapearing() {
-    setState(() {});
+  void buttonDissapearing(index) {
+    if (index == 1) {
+      _isMenuShown = true;
+    }
+    if (index == 0) {
+      _isMenuShown = false;
+    }
+    if (index == 2) {
+      _isMenuShown = false;
+    }
   }
 
   @override
@@ -79,26 +88,29 @@ class MapSampleState extends State<MapSample> {
           distance: 80.0,
           children: [
             SizedBox(
-                width: 80,
-                height: 80,
-                child: ActionButton(
-                  onPressed: () => _showAction(context, 0),
-                  icon: const Icon(Icons.format_size),
-                )),
+              width: 80,
+              height: 80,
+              child: ActionButton(
+                onPressed: () => _showAction(context, 0),
+                icon: const FaIcon(FontAwesomeIcons.mapMarkedAlt, size: 30),
+              ),
+            ),
             SizedBox(
                 width: 80,
                 height: 80,
                 child: ActionButton(
                   onPressed: () => _showAction(context, 1),
-                  icon: const Icon(Icons.insert_photo),
+                  icon:
+                      const FaIcon(FontAwesomeIcons.envelopeOpenText, size: 30),
                 )),
             SizedBox(
-                width: 80,
-                height: 80,
-                child: ActionButton(
-                  onPressed: () => _showAction(context, 2),
-                  icon: const Icon(Icons.videocam),
-                )),
+              width: 80,
+              height: 80,
+              child: ActionButton(
+                onPressed: () => _showAction(context, 2),
+                icon: const FaIcon(Icons.favorite_outline_rounded, size: 30),
+              ),
+            ),
           ],
         ),
       ),
@@ -130,7 +142,7 @@ class MapSampleState extends State<MapSample> {
             showSelectedLabels: false,
             iconSize: 38,
             onTap: (int index) {
-              buttonDissapearing();
+              buttonDissapearing(index);
               _onItemTap(index);
             },
             elevation: 0),
