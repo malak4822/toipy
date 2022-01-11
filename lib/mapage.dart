@@ -24,12 +24,26 @@ bool _isMenuShown = true;
 class MapSampleState extends State<MapSample> {
   final Completer<GoogleMapController> _controller = Completer();
 
-  final PageController _pageController = PageController(initialPage: 0);
-
   final CameraPosition _kGooglePlex = const CameraPosition(
     target: LatLng(52.217034, 20.987390),
     zoom: 9,
   );
+
+  Set<Marker> _markers = {};
+  late BitmapDescriptor mapMarker;
+
+  void setCustomMarker() async {
+    mapMarker = await BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(),
+      "img/markerlogo1.png",
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setCustomMarker();
+  }
 
   void _onItemTap(int index) {
     setState(() {
@@ -56,7 +70,19 @@ class MapSampleState extends State<MapSample> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            content: const Text("jd"),
+            title: Text(
+              "localpoop",
+              style:
+                  GoogleFonts.lemon(fontWeight: FontWeight.bold, fontSize: 30),
+              textAlign: TextAlign.center,
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(30))),
+            contentTextStyle: GoogleFonts.overpass(
+                color: Colors.white, fontSize: 25, fontWeight: FontWeight.w300),
+            backgroundColor: Colors.brown,
+            content: const Text(
+                "jdd dwdwwwdwd wdwdwdwdw dwdw dwjid jiwid wjiwdwidjwidwiw wdpoiad adjniou wudh wuid wguyfg ucbiiuia; wudu"),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
@@ -71,10 +97,17 @@ class MapSampleState extends State<MapSample> {
     final screens = [
       const FriendsPage(),
       GoogleMap(
+        markers: _markers,
         mapType: MapType.normal,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
+          setState(() {
+            _markers.add(Marker(
+                icon: mapMarker,
+                markerId: MarkerId("marker-1"),
+                position: LatLng(52.217034, 20.987390)));
+          });
         },
       ),
       const SomePage()

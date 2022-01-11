@@ -57,7 +57,7 @@ class _ExpandableFabState extends State<ExpandableFab>
     _open = widget.initialOpen ?? false;
     _controller = AnimationController(
       value: _open ? 1.0 : 0.0,
-      duration: const Duration(milliseconds: 250),
+      duration: const Duration(milliseconds: 200),
       vsync: this,
     );
     _expandAnimation = CurvedAnimation(
@@ -161,16 +161,20 @@ class _ExpandableFabState extends State<ExpandableFab>
           child: SizedBox(
             height: 90,
             width: 90,
-            child: FloatingActionButton(
-              elevation: 0,
-              splashColor: Colors.transparent,
-              backgroundColor: const Color.fromARGB(255, 129, 66, 44),
-              onPressed: () {
-                _toggle();
-              },
-              child: const Icon(
-                Icons.add,
-                size: 50,
+            child: InkWell(
+              onLongPress: () => _toggle(),
+              child: FloatingActionButton(
+                highlightElevation: 0,
+                elevation: 0,
+                splashColor: Colors.transparent,
+                backgroundColor: const Color.fromARGB(255, 129, 66, 44),
+                onPressed: () {
+                  _toggle();
+                },
+                child: const Icon(
+                  Icons.add,
+                  size: 50,
+                ),
               ),
             ),
           ),
