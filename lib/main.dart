@@ -2,6 +2,7 @@ import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:poopy/mapage.dart';
+import 'package:poopy/provider.dart';
 import 'package:poopy/registerPage.dart';
 import 'package:provider/provider.dart';
 
@@ -286,9 +287,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider.value(
-            value: null,
-          )
+          ChangeNotifierProvider(
+            create: (context) => ZmienneClass(),
+          ),
+          ListenableProvider(create: (context) => ZmienneClass())
         ],
         child: Scaffold(
           body: Container(

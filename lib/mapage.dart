@@ -1,15 +1,15 @@
 import 'dart:async';
-import 'dart:ffi';
-
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:poopy/expandablefab.dart';
 import 'package:poopy/friendspage.dart';
+import 'package:poopy/provider.dart';
 import 'package:poopy/somepage.dart';
+import 'package:provider/provider.dart';
 
-@immutable
 @immutable
 class MapSample extends StatefulWidget {
   const MapSample({Key? key}) : super(key: key);
@@ -63,6 +63,8 @@ class MapSampleState extends State<MapSample> {
     }
   }
 
+  bool _addingOption = false;
+
   @override
   Widget build(BuildContext context) {
     void _showAction(BuildContext context, int index) {
@@ -96,19 +98,38 @@ class MapSampleState extends State<MapSample> {
 
     final screens = [
       const FriendsPage(),
-      GoogleMap(
-        markers: _markers,
-        mapType: MapType.normal,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-          setState(() {
-            _markers.add(Marker(
-                icon: mapMarker,
-                markerId: MarkerId("marker-1"),
-                position: LatLng(52.217034, 20.987390)));
-          });
-        },
+      Stack(
+        children: [
+          Container(
+            color: Colors.amber.withOpacity(0.5),
+            child: GoogleMap(
+              markers: _markers,
+              mapType: MapType.normal,
+              initialCameraPosition: _kGooglePlex,
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+                setState(() {
+                  _markers.add(Marker(
+                      icon: mapMarker,
+                      markerId: MarkerId("marker-1"),
+                      position: LatLng(52.217034, 20.987390)));
+                });
+              },
+            ),
+          ),
+          Visibility(
+            visible: _addingOption,
+            child: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 4.0,
+                sigmaY: 4.0,
+              ),
+              child: Container(
+                color: Colors.white.withOpacity(0.3),
+              ),
+            ),
+          ),
+        ],
       ),
       const SomePage()
     ];
@@ -132,7 +153,12 @@ class MapSampleState extends State<MapSample> {
                 width: 80,
                 height: 80,
                 child: ActionButton(
-                  onPressed: () => _showAction(context, 1),
+                  onPressed: () {
+                    setState(() {
+                      _addingOption = !_addingOption;
+                      //_toggle();
+                    });
+                  },
                   icon:
                       const FaIcon(FontAwesomeIcons.envelopeOpenText, size: 30),
                 )),
@@ -179,16 +205,6 @@ class MapSampleState extends State<MapSample> {
               _onItemTap(index);
             },
             elevation: 0),
-      ),
-      appBar: AppBar(
-        toolbarHeight: 80,
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(210, 105, 30, 1),
-        title: Text(
-          "poopy",
-          style: GoogleFonts.overpass(
-              fontSize: 40, color: Colors.white, fontWeight: FontWeight.bold),
-        ),
       ),
       body: screens[_selectedIndex],
     );
