@@ -6,9 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:poopy/expandablefab.dart';
 import 'package:poopy/friendspage.dart';
-import 'package:poopy/provider.dart';
+
 import 'package:poopy/somepage.dart';
-import 'package:provider/provider.dart';
 
 @immutable
 class MapSample extends StatefulWidget {
@@ -29,12 +28,12 @@ class MapSampleState extends State<MapSample> {
     zoom: 9,
   );
 
-  Set<Marker> _markers = {};
+  final Set<Marker> _markers = {};
   late BitmapDescriptor mapMarker;
 
   void setCustomMarker() async {
     mapMarker = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(),
+      const ImageConfiguration(),
       "img/markerlogo1.png",
     );
   }
@@ -111,8 +110,8 @@ class MapSampleState extends State<MapSample> {
                 setState(() {
                   _markers.add(Marker(
                       icon: mapMarker,
-                      markerId: MarkerId("marker-1"),
-                      position: LatLng(52.217034, 20.987390)));
+                      markerId: const MarkerId("marker-1"),
+                      position: const LatLng(52.217034, 20.987390)));
                 });
               },
             ),
