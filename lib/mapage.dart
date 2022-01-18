@@ -99,22 +99,19 @@ class MapSampleState extends State<MapSample> {
       const FriendsPage(),
       Stack(
         children: [
-          Container(
-            color: Colors.amber.withOpacity(0.5),
-            child: GoogleMap(
-              markers: _markers,
-              mapType: MapType.normal,
-              initialCameraPosition: _kGooglePlex,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-                setState(() {
-                  _markers.add(Marker(
-                      icon: mapMarker,
-                      markerId: const MarkerId("marker-1"),
-                      position: const LatLng(52.217034, 20.987390)));
-                });
-              },
-            ),
+          GoogleMap(
+            markers: _markers,
+            mapType: MapType.normal,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+              setState(() {
+                _markers.add(Marker(
+                    icon: mapMarker,
+                    markerId: const MarkerId("marker-1"),
+                    position: const LatLng(52.217034, 20.987390)));
+              });
+            },
           ),
           Visibility(
             visible: _addingOption,

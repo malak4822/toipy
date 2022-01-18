@@ -49,39 +49,43 @@ class _FriendsPageState extends State<FriendsPage> {
       backgroundColor: const Color.fromARGB(190, 105, 30, 1),
       body: ListView(
         children: [
-          const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              CircleAvatar(
-                radius: 70,
-                backgroundColor: Colors.white,
-                backgroundImage: AssetImage("img/logo.png"),
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    child: Text(
-                      "Kamil Malak",
-                      style: GoogleFonts.overpass(
-                          color: Colors.black,
-                          fontSize: 35,
-                          fontWeight: FontWeight.w900),
-                    ),
-                  ),
-                  SizedBox(
-                      width: 200,
-                      child: Text(
-                          "Iure doloremque provident eum culpa rerum qui expedita amet. Rerum quis doloremque laboriosam iste facilis occaecati nemo.",
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  radius: 70,
+                  backgroundColor: Colors.white,
+                  backgroundImage: AssetImage("img/logo.png"),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Błazej Normalny Brezeczyszykiewicz",
+                        softWrap: true,
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.overpass(
+                            color: Colors.black,
+                            fontSize: 35,
+                            fontWeight: FontWeight.w900),
+                      ),
+                      Text(
+                          "Iure doloremque provident eum culpa rerum qui expedita amet. Rerum quis doloremque laboriosam iste facilis occaecati nemo.Iure doloremque provident eum culpa rerum qui expedita amet.",
+                          maxLines: 4,
                           style: GoogleFonts.overpass(
                               color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w200)))
-                ],
-              )
-            ],
-          )
+                              fontSize: 17,
+                              fontWeight: FontWeight.w200))
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
