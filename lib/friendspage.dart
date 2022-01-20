@@ -64,7 +64,7 @@ class _FriendsPageState extends State<FriendsPage> {
                   child: Column(
                     children: [
                       Text(
-                        "Błazej Normalny Brezeczyszykiewicz",
+                        "Błazej Normalny Brezeczyszykiewicz Kurwa szmato",
                         softWrap: true,
                         maxLines: 2,
                         textAlign: TextAlign.center,
