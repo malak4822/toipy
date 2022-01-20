@@ -17,6 +17,10 @@ class _FriendsPageState extends State<FriendsPage> {
     });
   }
 
+  String imie = "Kamil Malak";
+  String opis =
+      "Jo, jestem kamil i to jest mój testowy profil użytkownika, pisze te słowa bez sensu trochę ale bywa, nic na to nie poradzę";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +68,7 @@ class _FriendsPageState extends State<FriendsPage> {
                   child: Column(
                     children: [
                       Text(
-                        "Błazej Normalny Brezeczyszykiewicz Kurwa szmato",
+                        imie,
                         softWrap: true,
                         maxLines: 2,
                         textAlign: TextAlign.center,
@@ -73,8 +77,7 @@ class _FriendsPageState extends State<FriendsPage> {
                             fontSize: 35,
                             fontWeight: FontWeight.w900),
                       ),
-                      Text(
-                          "Iure doloremque provident eum culpa rerum qui expedita amet. Rerum quis doloremque laboriosam iste facilis occaecati nemo.Iure doloremque provident eum culpa rerum qui expedita amet.",
+                      Text(opis,
                           maxLines: 4,
                           style: GoogleFonts.overpass(
                               color: Colors.white,

@@ -9,38 +9,25 @@ class FriendsPageEditable extends StatefulWidget {
 }
 
 class _FriendsPageEditableState extends State<FriendsPageEditable> {
-  double _turns = 0;
-  void animacja() {
-    setState(() {
-      _turns += 1 / 4;
-    });
+  void _showAction(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      barrierColor: Colors.black.withOpacity(0.8),
+      builder: (context) {
+        return const AlertDialog(
+          title: Text(
+            "essa",
+            textAlign: TextAlign.center,
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Stack(
-        children: [
-          Positioned(
-            bottom: 0,
-            left: 30,
-            child: FloatingActionButton(
-              onPressed: () => {},
-              backgroundColor: Colors.black,
-              child: const Icon(Icons.block_flipped),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: FloatingActionButton(
-              onPressed: () => {},
-              backgroundColor: Colors.black,
-              child: const Icon(Icons.check),
-            ),
-          ),
-        ],
-      ),
-      backgroundColor: const Color.fromARGB(190, 105, 30, 1),
+      backgroundColor: const Color.fromARGB(255, 157, 83, 83),
       body: ListView(
         children: [
           Padding(
@@ -50,22 +37,7 @@ class _FriendsPageEditableState extends State<FriendsPageEditable> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    int index = 2;
-                    void _showAction(BuildContext context, int index) {
-                      showDialog<void>(
-                        context: context,
-                        builder: (context) {
-                          return const AlertDialog(
-                            title: Text(
-                              "essa",
-                              textAlign: TextAlign.center,
-                            ),
-                          );
-                        },
-                      );
-                    }
-
-                    _showAction(context, index);
+                    _showAction(context);
                   },
                   child: CircleAvatar(
                     radius: 70,
@@ -76,7 +48,7 @@ class _FriendsPageEditableState extends State<FriendsPageEditable> {
                       height: double.infinity,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.black.withOpacity(0.55)),
+                          color: Colors.black.withOpacity(0.5)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -98,41 +70,63 @@ class _FriendsPageEditableState extends State<FriendsPageEditable> {
                 Expanded(
                   child: Column(
                     children: [
-                      Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white.withOpacity(0.3),
+                      GestureDetector(
+                        onTap: () {
+                          _showAction(context);
+                        },
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white.withOpacity(0.1),
+                              ),
+                              child: Text(
+                                "Kamil Malak Don Kiszonito",
+                                softWrap: true,
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                style: GoogleFonts.overpass(
+                                    color: Colors.black.withOpacity(0.5),
+                                    fontSize: 35,
+                                    fontWeight: FontWeight.w900),
+                              ),
                             ),
-                            child: Text(
-                              "Kamil Malak essa kurwa",
-                              softWrap: true,
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              style: GoogleFonts.overpass(
-                                  color: Colors.black,
-                                  fontSize: 35,
-                                  fontWeight: FontWeight.w900),
+                            const Center(
+                              child: Icon(Icons.border_color,
+                                  color: Colors.white, size: 40),
                             ),
-                          ),
-                          const Center(
-                            child: Icon(Icons.border_color,
-                                color: Colors.white, size: 30),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.amber.withOpacity(0.3)),
-                          child: Text(
-                              "Iure doloremque provident eum culpa rerum qui expedita amet. Rerum quis doloremque laboriosam iste facilis occaecati nemo.",
-                              style: GoogleFonts.overpass(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w200)))
+                      const SizedBox(height: 5),
+                      GestureDetector(
+                          onTap: () {
+                            _showAction(context);
+                          },
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              const Center(
+                                child: Icon(Icons.border_color,
+                                    color: Colors.white, size: 40),
+                              ),
+                              Container(
+                                  alignment: Alignment.centerRight,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white.withOpacity(0.2)),
+                                  child: Text(
+                                      "Iure doloremque provident eum culpa rerum qui expedita amet. Rerum quis doloremque laboriosam iste facilis occaecati nemo.",
+                                      maxLines: 4,
+                                      style: GoogleFonts.overpass(
+                                          color: Colors.white.withOpacity(0.5),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w200)))
+                            ],
+                          ))
                     ],
                   ),
                 ),
