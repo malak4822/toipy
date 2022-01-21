@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:poopy/expandablefab.dart';
 import 'package:poopy/friendspage.dart';
-
 import 'package:poopy/somepage.dart';
 
 @immutable

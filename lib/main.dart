@@ -50,6 +50,30 @@ double _loginButtonVisibility = 0;
 double _borderwidth = 0.2;
 
 class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    var parapa = Provider.of<ZmienneClass>(context).essa;
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => ZmienneClass(),
+          ),
+        ],
+        child: Scaffold(
+          body: Container(
+            color: const Color.fromARGB(139, 69, 19, 1),
+            child: ListView(
+              children: <Widget>[
+                const SizedBox(height: 80),
+                logo(),
+                fields(),
+                mediasilogin(),
+              ],
+            ),
+          ),
+        ));
+  }
+
   void poopAnimationIn() async {
     setState(() {
       _initialImageHeight = _expandedImageHeight;
@@ -284,28 +308,4 @@ class _MyHomePageState extends State<MyHomePage> {
                   ))))
         ],
       );
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => ZmienneClass(),
-          ),
-          ListenableProvider(create: (context) => ZmienneClass())
-        ],
-        child: Scaffold(
-          body: Container(
-            color: const Color.fromARGB(139, 69, 19, 1),
-            child: ListView(
-              children: <Widget>[
-                const SizedBox(height: 80),
-                logo(),
-                fields(),
-                mediasilogin(),
-              ],
-            ),
-          ),
-        ));
-  }
 }
