@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:poopy/friendspageeditable.dart';
+import 'package:poopy/provider.dart';
+import 'package:provider/provider.dart';
 
 class FriendsPage extends StatefulWidget {
   const FriendsPage({Key? key}) : super(key: key);
@@ -17,12 +19,10 @@ class _FriendsPageState extends State<FriendsPage> {
     });
   }
 
-  String imie = "Kamil Malak";
-  String opis =
-      "Jo, jestem kamil i to jest mój testowy profil użytkownika, pisze te słowa bez sensu trochę ale bywa, nic na to nie poradzę";
-
   @override
   Widget build(BuildContext context) {
+    String imie = Provider.of<ZmienneClass>(context).imie;
+    String opis = Provider.of<ZmienneClass>(context).opis;
     return Scaffold(
       floatingActionButton: SizedBox(
         height: 70,

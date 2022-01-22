@@ -1,12 +1,15 @@
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:poopy/friendspageeditable.dart';
 import 'package:poopy/mapage.dart';
 import 'package:poopy/provider.dart';
 import 'package:poopy/registerPage.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ZmienneClass.init();
   runApp(const MyApp());
 }
 
@@ -15,14 +18,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Poppy App',
-      theme: ThemeData(
-        primarySwatch: Colors.brown,
-      ),
-      home: const MyHomePage(),
-    );
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => ZmienneClass(),
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Poppy App',
+          theme: ThemeData(
+            primarySwatch: Colors.brown,
+          ),
+          home: const MyHomePage(),
+        ));
   }
 }
 
@@ -52,26 +61,18 @@ double _borderwidth = 0.2;
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    var parapa = Provider.of<ZmienneClass>(context).essa;
-    return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => ZmienneClass(),
-          ),
+    return Scaffold(
+        body: Container(
+      color: const Color.fromARGB(139, 69, 19, 1),
+      child: ListView(
+        children: <Widget>[
+          const SizedBox(height: 80),
+          logo(),
+          fields(),
+          mediasilogin(),
         ],
-        child: Scaffold(
-          body: Container(
-            color: const Color.fromARGB(139, 69, 19, 1),
-            child: ListView(
-              children: <Widget>[
-                const SizedBox(height: 80),
-                logo(),
-                fields(),
-                mediasilogin(),
-              ],
-            ),
-          ),
-        ));
+      ),
+    ));
   }
 
   void poopAnimationIn() async {
