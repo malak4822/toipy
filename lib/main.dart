@@ -5,6 +5,7 @@ import 'package:poopy/friendspageeditable.dart';
 import 'package:poopy/mapage.dart';
 import 'package:poopy/provider.dart';
 import 'package:poopy/registerPage.dart';
+import 'package:poopy/saveboxes.dart';
 import 'package:provider/provider.dart';
 
 Future main() async {
@@ -19,19 +20,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => ZmienneClass(),
-          ),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Poppy App',
-          theme: ThemeData(
-            primarySwatch: Colors.brown,
-          ),
-          home: const MyHomePage(),
-        ));
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ZmienneClass(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SaveBoxes(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Poppy App',
+        theme: ThemeData(
+          primarySwatch: Colors.brown,
+        ),
+        home: const MyHomePage(),
+      ),
+    );
   }
 }
 

@@ -59,9 +59,13 @@ class _FriendsPageState extends State<FriendsPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const CircleAvatar(
-                  radius: 70,
+                  radius: 72,
                   backgroundColor: Colors.white,
-                  backgroundImage: AssetImage("img/logo.png"),
+                  child: CircleAvatar(
+                    radius: 70,
+                    backgroundColor: Colors.white,
+                    backgroundImage: AssetImage("img/logo.png"),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Expanded(

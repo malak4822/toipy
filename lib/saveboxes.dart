@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class SaveBoxes extends ChangeNotifier {
   void showNameAction(BuildContext context) {
-    String imie = Provider.of<ZmienneClass>(context).imie;
+    String imie = Provider.of<ZmienneClass>(context, listen: false).imie;
 
     showDialog<void>(
       context: context,
@@ -23,14 +23,14 @@ class SaveBoxes extends ChangeNotifier {
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold),
                 cursorWidth: 10,
-                cursorHeight: 14,
+                cursorRadius: const Radius.circular(10),
                 cursorColor: Colors.white,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: imie,
                     hintStyle: GoogleFonts.overpass(
-                        color: Colors.white,
+                        color: Colors.white.withOpacity(0.4),
                         fontSize: 35.0,
                         fontWeight: FontWeight.bold))),
             actions: [
@@ -65,10 +65,11 @@ class SaveBoxes extends ChangeNotifier {
             ]);
       },
     );
+    notifyListeners();
   }
 
   void showDescAction(BuildContext context) {
-    String opis = Provider.of<ZmienneClass>(context).opis;
+    String opis = Provider.of<ZmienneClass>(context, listen: false).opis;
 
     showDialog<void>(
       context: context,
@@ -87,15 +88,16 @@ class SaveBoxes extends ChangeNotifier {
                     fontWeight: FontWeight.bold),
                 cursorWidth: 10,
                 cursorHeight: 14,
+                cursorRadius: const Radius.circular(20),
                 cursorColor: Colors.white,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: opis,
                     hintStyle: GoogleFonts.overpass(
-                        color: Colors.white,
-                        fontSize: 35.0,
-                        fontWeight: FontWeight.bold))),
+                      color: Colors.white,
+                      fontSize: 20.0,
+                    ))),
             actions: [
               SizedBox(
                   width: MediaQuery.of(context).size.width,
