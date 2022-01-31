@@ -1,5 +1,6 @@
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:poopy/friendspageeditable.dart';
 import 'package:poopy/mapage.dart';
@@ -61,14 +62,14 @@ double _initialImageHeight = _initialHeight;
 double _expandedImageHeight = 180;
 
 double _loginButtonVisibility = 0;
-double _borderwidth = 0.2;
+double _borderwidth = 0.0;
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      color: const Color.fromARGB(139, 69, 19, 1),
+      color: const Color.fromARGB(155, 69, 19, 1),
       child: ListView(
         children: <Widget>[
           const SizedBox(height: 80),
@@ -89,20 +90,6 @@ class _MyHomePageState extends State<MyHomePage> {
         _initialImageHeight = _initialHeight;
       });
     });
-  }
-
-  void increasingLoginVis() {
-    setState(() {
-      _loginButtonVisibility = _loginButtonVisibility + 0.025;
-    });
-  }
-
-  void increasingBorder() {
-    if (_borderwidth >= 2) {
-      return;
-    } else {
-      _borderwidth = _borderwidth + 0.05;
-    }
   }
 
 //////////////////////////// LOGO ////////////////////////////////////////////
@@ -148,17 +135,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                       child: TextFormField(
-                        onEditingComplete: () =>
-                            {loginButtonVisibility = 0.5, _borderwidth = 0.5},
-                        onFieldSubmitted: (wielkoscborderu) =>
-                            {loginButtonVisibility = 0.5, _borderwidth = 0.5},
                         onChanged: (a) {
-                          if (_loginButtonVisibility >= 0.5) {
-                            return;
-                          } else {
-                            increasingLoginVis();
-                            increasingBorder();
-                          }
+                          setState(() {
+                            if (_loginButtonVisibility <= 0.5) {
+                              _loginButtonVisibility =
+                                  _loginButtonVisibility + 0.0625;
+                            }
+                            if (_borderwidth <= 0.9375) {
+                              _borderwidth = _borderwidth + 0.125;
+                            }
+                          });
                         },
                         keyboardType: TextInputType.emailAddress,
                         style: GoogleFonts.overpass(
@@ -205,11 +191,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                     child: TextFormField(
                       onChanged: (a) {
-                        if (_loginButtonVisibility >= 0.96) {
-                          return;
-                        }
-                        increasingLoginVis();
-                        increasingBorder();
+                        setState(() {
+                          if (_loginButtonVisibility <= 0.9375) {
+                            _loginButtonVisibility =
+                                _loginButtonVisibility + 0.0625;
+                          }
+                          if (_borderwidth <= 1.875) {
+                            _borderwidth = _borderwidth + 0.125;
+                          }
+                        });
                       },
                       style: GoogleFonts.overpass(
                           color: Colors.white,
@@ -255,63 +245,37 @@ class _MyHomePageState extends State<MyHomePage> {
       ]);
 /////////////////////////// POLA LOGOWANIA SIĘ ///////////////////////////////
 
-  Widget mediasilogin() => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          AnimatedContainer(
-              curve: Curves.bounceIn,
-              duration: const Duration(milliseconds: 500),
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MapSample()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      side:
-                          BorderSide(color: Colors.white, width: _borderwidth),
-                      primary: const Color.fromARGB(210, 105, 30, 1)
-                          .withOpacity(_loginButtonVisibility),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: const EdgeInsets.all(15)),
-                  child: Center(
-                      child: Text(
-                    "Login",
-                    style: GoogleFonts.overpass(
-                        fontSize: 30.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w200),
-                  )))),
-          const SizedBox(width: 10.0),
-          AnimatedContainer(
-              curve: Curves.bounceIn,
-              duration: const Duration(milliseconds: 500),
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegisterPage()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                      side: const BorderSide(color: Colors.white, width: 2),
-                      primary:
-                          const Color.fromARGB(210, 105, 30, 1).withOpacity(1),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: const EdgeInsets.all(15)),
-                  child: Center(
-                      child: Text(
-                    "Register",
-                    style: GoogleFonts.overpass(
-                        fontSize: 30.0,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w200),
-                  ))))
-        ],
-      );
+  Widget mediasilogin() => AnimatedContainer(
+      margin: const EdgeInsets.symmetric(horizontal: 90),
+      curve: Curves.bounceIn,
+      duration: const Duration(milliseconds: 500),
+      child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const MapSample()));
+          },
+          style: ElevatedButton.styleFrom(
+              side: BorderSide(color: Colors.white, width: _borderwidth),
+              primary: const Color.fromARGB(0, 115, 70, 10)
+                  .withOpacity(_loginButtonVisibility),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsets.all(10)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Login ",
+                style: GoogleFonts.overpass(
+                    fontSize: 40.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w200),
+              ),
+              const FaIcon(
+                FontAwesomeIcons.arrowAltCircleUp,
+                size: 40,
+              ),
+            ],
+          )));
 }

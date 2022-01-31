@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:poopy/expandablefab.dart';
@@ -21,6 +22,34 @@ bool _isMenuShown = true;
 
 class MapSampleState extends State<MapSample> {
   final Completer<GoogleMapController> _controller = Completer();
+
+  double _lokalizacja = 1;
+  double _lokalizacja1 = 1;
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
 
   final CameraPosition _kGooglePlex = const CameraPosition(
     target: LatLng(52.217034, 20.987390),
@@ -81,8 +110,7 @@ class MapSampleState extends State<MapSample> {
             contentTextStyle: GoogleFonts.overpass(
                 color: Colors.white, fontSize: 25, fontWeight: FontWeight.w300),
             backgroundColor: Colors.brown,
-            content: const Text(
-                "jdd dwdwwwdwd wdwdwdwdw dwdw dwjid jiwid wjiwdwidjwidwiw wdpoiad adjniou wudh wuid wguyfg ucbiiuia; wudu"),
+            content: const Text("Essa"),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
@@ -108,7 +136,7 @@ class MapSampleState extends State<MapSample> {
                 _markers.add(Marker(
                     icon: mapMarker,
                     markerId: const MarkerId("marker-1"),
-                    position: const LatLng(52.217034, 20.987390)));
+                    position: LatLng(_lokalizacja, _lokalizacja1)));
               });
             },
           ),
@@ -161,7 +189,15 @@ class MapSampleState extends State<MapSample> {
               width: 80,
               height: 80,
               child: ActionButton(
-                onPressed: () => _showAction(context, 2),
+                onPressed: () async {
+                  Position _position = await _determinePosition();
+                  setState(() {
+                    _lokalizacja = _position.latitude;
+                    _lokalizacja1 = _position.longitude;
+                    print(_lokalizacja);
+                    print(_lokalizacja1);
+                  });
+                },
                 icon: const FaIcon(Icons.favorite_outline_rounded, size: 30),
               ),
             ),

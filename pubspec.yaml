@@ -46,6 +46,10 @@ dependencies:
   circular_menu: ^1.2.3
   image_picker: ^0.8.4+4
   shared_preferences: ^2.0.12
+  permission_handler: ^8.3.0
+  geolocator: ^8.0.5
+  flutter_bloc: ^8.0.1
+  equatable: ^2.0.3
 
 dev_dependencies:
   flutter_test:
