@@ -11,7 +11,9 @@ import 'package:poopy/somepage.dart';
 
 @immutable
 class MapSample extends StatefulWidget {
-  const MapSample({Key? key}) : super(key: key);
+  const MapSample({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MapSample> createState() => MapSampleState();
@@ -23,37 +25,9 @@ bool _isMenuShown = true;
 class MapSampleState extends State<MapSample> {
   final Completer<GoogleMapController> _controller = Completer();
 
-  double _lokalizacja = 1;
-  double _lokalizacja1 = 1;
-  Future<Position> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      await Geolocator.openLocationSettings();
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    return await Geolocator.getCurrentPosition();
-  }
-
   final CameraPosition _kGooglePlex = const CameraPosition(
     target: LatLng(52.217034, 20.987390),
-    zoom: 9,
+    zoom: 1,
   );
 
   final Set<Marker> _markers = {};
@@ -66,10 +40,22 @@ class MapSampleState extends State<MapSample> {
     );
   }
 
+  LatLng? currentLocation;
+
   @override
   void initState() {
     super.initState();
+    getCurrentLocation();
     setCustomMarker();
+  }
+
+  void getCurrentLocation() async {
+    var position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    currentLocation = LatLng(position.latitude, position.longitude);
+    //    var lastPosition = await Geolocator.getLastKnownPosition();
+
+    //   print(lastPosition);
   }
 
   void _onItemTap(int index) {
@@ -81,11 +67,7 @@ class MapSampleState extends State<MapSample> {
   void buttonDissapearing(index) {
     if (index == 1) {
       _isMenuShown = true;
-    }
-    if (index == 0) {
-      _isMenuShown = false;
-    }
-    if (index == 2) {
+    } else {
       _isMenuShown = false;
     }
   }
@@ -127,17 +109,18 @@ class MapSampleState extends State<MapSample> {
       Stack(
         children: [
           GoogleMap(
+            myLocationButtonEnabled: false,
+            zoomControlsEnabled: true,
+            myLocationEnabled: true,
             markers: _markers,
             mapType: MapType.normal,
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
-              setState(() {
-                _markers.add(Marker(
-                    icon: mapMarker,
-                    markerId: const MarkerId("marker-1"),
-                    position: LatLng(_lokalizacja, _lokalizacja1)));
-              });
+              _markers.add(Marker(
+                  icon: mapMarker,
+                  markerId: const MarkerId("marker-1"),
+                  position: currentLocation ?? LatLng(0, 0)));
             },
           ),
           Visibility(
@@ -189,14 +172,9 @@ class MapSampleState extends State<MapSample> {
               width: 80,
               height: 80,
               child: ActionButton(
-                onPressed: () async {
-                  Position _position = await _determinePosition();
-                  setState(() {
-                    _lokalizacja = _position.latitude;
-                    _lokalizacja1 = _position.longitude;
-                    print(_lokalizacja);
-                    print(_lokalizacja1);
-                  });
+                onPressed: () {
+                  getCurrentLocation();
+                  print(currentLocation);
                 },
                 icon: const FaIcon(Icons.favorite_outline_rounded, size: 30),
               ),
