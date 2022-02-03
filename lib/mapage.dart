@@ -111,8 +111,8 @@ class MapSampleState extends State<MapSample> {
           GoogleMap(
             myLocationButtonEnabled: false,
             zoomControlsEnabled: true,
-            myLocationEnabled: true,
             markers: _markers,
+            myLocationEnabled: true,
             mapType: MapType.normal,
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
@@ -120,7 +120,7 @@ class MapSampleState extends State<MapSample> {
               _markers.add(Marker(
                   icon: mapMarker,
                   markerId: const MarkerId("marker-1"),
-                  position: currentLocation ?? LatLng(0, 0)));
+                  position: currentLocation ?? const LatLng(0, 0)));
             },
           ),
           Visibility(
@@ -174,7 +174,6 @@ class MapSampleState extends State<MapSample> {
               child: ActionButton(
                 onPressed: () {
                   getCurrentLocation();
-                  print(currentLocation);
                 },
                 icon: const FaIcon(Icons.favorite_outline_rounded, size: 30),
               ),
