@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,7 +28,7 @@ class MapSampleState extends State<MapSample> {
 
   final CameraPosition _kGooglePlex = const CameraPosition(
     target: LatLng(52.217034, 20.987390),
-    zoom: 1,
+    zoom: 16,
   );
 
   final Set<Marker> _markers = {};
@@ -44,9 +45,9 @@ class MapSampleState extends State<MapSample> {
 
   @override
   void initState() {
-    super.initState();
     getCurrentLocation();
     setCustomMarker();
+    super.initState();
   }
 
   void getCurrentLocation() async {
@@ -113,7 +114,7 @@ class MapSampleState extends State<MapSample> {
             zoomControlsEnabled: true,
             markers: _markers,
             myLocationEnabled: true,
-            mapType: MapType.normal,
+            mapType: MapType.satellite,
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
@@ -144,41 +145,47 @@ class MapSampleState extends State<MapSample> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Visibility(
         visible: _isMenuShown,
-        child: ExpandableFab(
-          distance: 80.0,
-          children: [
-            SizedBox(
-              width: 80,
-              height: 80,
-              child: ActionButton(
-                onPressed: () => _showAction(context, 0),
-                icon: const FaIcon(FontAwesomeIcons.mapMarkedAlt, size: 30),
+        child: SizedBox(
+          width: (MediaQuery.of(context).size.width / 4 - 10),
+          height: MediaQuery.of(context).size.width * 0.14,
+          child: ExpandableFab(
+            distance: 80.0,
+            children: [
+              SizedBox.fromSize(
+                size: const Size(80, 80),
+                child: ActionButton(
+                  onPressed: () {
+                    setCustomMarker();
+                    getCurrentLocation();
+                  },
+                  icon: const FaIcon(FontAwesomeIcons.mapPin, size: 30),
+                ),
               ),
-            ),
-            SizedBox(
-                width: 80,
-                height: 80,
+
+              /// KOLEJNA
+              SizedBox.fromSize(
+                size: const Size(80, 80),
                 child: ActionButton(
                   onPressed: () {
                     setState(() {
                       _addingOption = !_addingOption;
-                      //_toggle();
                     });
                   },
                   icon:
                       const FaIcon(FontAwesomeIcons.envelopeOpenText, size: 30),
-                )),
-            SizedBox(
-              width: 80,
-              height: 80,
-              child: ActionButton(
-                onPressed: () {
-                  getCurrentLocation();
-                },
-                icon: const FaIcon(Icons.favorite_outline_rounded, size: 30),
+                ),
               ),
-            ),
-          ],
+
+              /// KOLEJNA
+              SizedBox.fromSize(
+                size: const Size(80, 80),
+                child: ActionButton(
+                  onPressed: () => _showAction(context, 0),
+                  icon: const FaIcon(FontAwesomeIcons.mapMarkedAlt, size: 30),
+                ),
+              )
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(
@@ -192,7 +199,7 @@ class MapSampleState extends State<MapSample> {
                 backgroundColor: Color.fromARGB(190, 105, 30, 1),
               ),
               BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.map),
+                icon: FaIcon(FontAwesomeIcons.mapSigns),
                 label: 'Mapa',
                 backgroundColor: Color.fromARGB(210, 105, 30, 1),
               ),
@@ -212,7 +219,7 @@ class MapSampleState extends State<MapSample> {
               buttonDissapearing(index);
               _onItemTap(index);
             },
-            elevation: 0),
+            elevation: 4),
       ),
       body: screens[_selectedIndex],
     );
