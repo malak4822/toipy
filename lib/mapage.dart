@@ -140,6 +140,7 @@ class MapSampleState extends State<MapSample> {
       }
     }
 
+    int dwdw = 2;
     return Scaffold(
       body: screens[index],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
