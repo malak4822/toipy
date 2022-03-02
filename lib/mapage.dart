@@ -5,22 +5,20 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:poopy/bottomAppBar.dart';
 import 'package:poopy/expandablefab.dart';
 import 'package:poopy/friendspage.dart';
 import 'package:poopy/somepage.dart';
 
 @immutable
 class MapSample extends StatefulWidget {
-  const MapSample({
+  MapSample({
     Key? key,
   }) : super(key: key);
 
   @override
   State<MapSample> createState() => MapSampleState();
 }
-
-int _selectedIndex = 1;
-bool _isMenuShown = true;
 
 class MapSampleState extends State<MapSample> {
   final Completer<GoogleMapController> _controller = Completer();
@@ -32,6 +30,10 @@ class MapSampleState extends State<MapSample> {
 
   final Set<Marker> _markers = {};
   late BitmapDescriptor mapMarker;
+
+  var selectedindex = 0;
+
+  var onChangedTab;
 
   void setCustomMarker() async {
     mapMarker = await BitmapDescriptor.fromAssetImage(
@@ -58,12 +60,7 @@ class MapSampleState extends State<MapSample> {
     //   print(lastPosition);
   }
 
-  void buttonDissapearing(index) {
-    if (index != 1) {
-      _isMenuShown = false;
-    }
-  }
-
+  int index = 0;
   bool _addingOption = false;
 
   @override
@@ -131,113 +128,75 @@ class MapSampleState extends State<MapSample> {
       ),
       const SomePage()
     ];
+
 //decoration: const BoxDecoration
 //         border: Border(top: BorderSide(color: Colors.white, width: 10))),
 
+    //   _isMenuShown = true;
+
+    void onChangedTab(int index) {
+      setState(() {
+        this.index = index;
+      });
+    }
+
     return Scaffold(
-        body: screens[_selectedIndex],
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton:
-            Stack(alignment: Alignment.bottomCenter, children: [
-          Visibility(
-            visible: _isMenuShown,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 60),
-              child: ExpandableFab(
-                distance: 95.0,
-                children: [
-                  //PRZYCISKI PRZYCISKI PRZYCISKI PRZYCISKI PRZYCISKI PRZYCISKI
+      body: screens[index],
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Stack(alignment: Alignment.bottomCenter, children: [
+        Visibility(
+          //        visible: _isMenuShown,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 60),
+            child: ExpandableFab(
+              distance: 95.0,
+              children: [
+                //PRZYCISKI PRZYCISKI PRZYCISKI PRZYCISKI PRZYCISKI PRZYCISKI
 
-                  SizedBox.fromSize(
-                    child: ActionButton(
-                      onPressed: () {
-                        setCustomMarker();
-                        getCurrentLocation();
-                      },
-                      icon: const FaIcon(FontAwesomeIcons.mapPin, size: 30),
-                    ),
+                SizedBox.fromSize(
+                  child: ActionButton(
+                    onPressed: () {
+                      setCustomMarker();
+                      getCurrentLocation();
+                    },
+                    icon: const FaIcon(FontAwesomeIcons.mapPin, size: 30),
                   ),
+                ),
 
-                  SizedBox.fromSize(
-                    child: ActionButton(
-                      onPressed: () {
-                        setState(() {
-                          _addingOption = !_addingOption;
-                        });
-                      },
-                      icon: const FaIcon(FontAwesomeIcons.envelopeOpenText,
-                          size: 30),
-                    ),
+                SizedBox.fromSize(
+                  child: ActionButton(
+                    onPressed: () {
+                      setState(() {
+                        _addingOption = !_addingOption;
+                      });
+                    },
+                    icon: const FaIcon(FontAwesomeIcons.envelopeOpenText,
+                        size: 30),
                   ),
+                ),
 
-                  SizedBox.fromSize(
-                    child: ActionButton(
-                      onPressed: () => _showAction(context, 0),
-                      icon:
-                          const FaIcon(FontAwesomeIcons.mapMarkedAlt, size: 30),
-                    ),
-                  )
-                ],
-              ),
+                SizedBox.fromSize(
+                  child: ActionButton(
+                    onPressed: () => _showAction(context, 0),
+                    icon: const FaIcon(FontAwesomeIcons.mapMarkedAlt, size: 30),
+                  ),
+                )
+              ],
             ),
           ),
-          Stack(alignment: AlignmentDirectional.bottomCenter, children: [
-            Container(
-                height: 80,
-                decoration: const BoxDecoration(
-                    border:
-                        Border(top: BorderSide(color: Colors.white, width: 2))),
-                child: BottomAppBar(
-                    //   shape: CircularNotchedRectangle(),
-                    color: const Color.fromARGB(255, 155, 108, 77),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          IconButton(
-                            tooltip: "Znajomi",
-                            icon: const Icon(Icons.person),
-                            onPressed: () {
-                              setState(() {
-                                _selectedIndex = 0;
-                              });
-                            },
-                          ),
-                          IconButton(
-                            tooltip: "Mapa",
-                            icon: const Icon(FontAwesomeIcons.mapSigns),
-                            onPressed: () {
-                              setState(() {
-                                buttonDissapearing;
-                                _selectedIndex = 1;
-                              });
-                            },
-                          ),
-                          IconButton(
-                            tooltip: "Ranking",
-                            icon: const Icon(Icons.folder),
-                            onPressed: () {
-                              setState(() {
-                                _selectedIndex = 2;
-                              });
-                            },
-                          ),
-                          //     icon: Icon(Icons.person),
-                          //     label: 'Znajomi',
-
-                          //     icon: FaIcon(FontAwesomeIcons.mapSigns),
-                          //     label: 'Mapa',
-
-                          //    icon: FaIcon(FontAwesomeIcons.crown),
-                          //    label: 'Ranking',
-
-                          // currentIndex: _selectedIndex,
-
-                          // onTap: (int index) {
-                          //   buttonDissapearing(index);
-                          //   _onItemTap(index);
-                          // },
-                        ])))
-          ])
-        ]));
+        ),
+        Stack(alignment: AlignmentDirectional.bottomCenter, children: [
+          Container(
+              height: 80,
+              decoration: const BoxDecoration(
+                  border:
+                      Border(top: BorderSide(color: Colors.white, width: 2))),
+              child: BottomAppBarTab(
+                index: index,
+                onChangedTab: onChangedTab,
+              ))
+        ])
+      ]),
+    );
   }
 }
