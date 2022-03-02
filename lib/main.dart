@@ -2,10 +2,10 @@ import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:poopy/friendspageeditable.dart';
+
 import 'package:poopy/mapage.dart';
 import 'package:poopy/provider.dart';
-import 'package:poopy/registerPage.dart';
+
 import 'package:poopy/saveboxes.dart';
 import 'package:provider/provider.dart';
 
