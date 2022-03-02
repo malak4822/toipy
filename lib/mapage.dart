@@ -31,10 +31,6 @@ class MapSampleState extends State<MapSample> {
   final Set<Marker> _markers = {};
   late BitmapDescriptor mapMarker;
 
-  var selectedindex = 0;
-
-  var onChangedTab;
-
   void setCustomMarker() async {
     mapMarker = await BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(),
@@ -60,8 +56,9 @@ class MapSampleState extends State<MapSample> {
     //   print(lastPosition);
   }
 
-  int index = 0;
+  int index = 1;
   bool _addingOption = false;
+  bool _isMenuShown = true;
 
   @override
   Widget build(BuildContext context) {
@@ -129,15 +126,18 @@ class MapSampleState extends State<MapSample> {
       const SomePage()
     ];
 
-//decoration: const BoxDecoration
-//         border: Border(top: BorderSide(color: Colors.white, width: 10))),
-
-    //   _isMenuShown = true;
-
     void onChangedTab(int index) {
       setState(() {
         this.index = index;
       });
+    }
+
+    void buttonDissapearing(index) {
+      if (index != 1) {
+        _isMenuShown = false;
+      } else {
+        _isMenuShown = true;
+      }
     }
 
     return Scaffold(
@@ -145,7 +145,7 @@ class MapSampleState extends State<MapSample> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Stack(alignment: Alignment.bottomCenter, children: [
         Visibility(
-          //        visible: _isMenuShown,
+          visible: _isMenuShown,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 60),
             child: ExpandableFab(
@@ -194,6 +194,7 @@ class MapSampleState extends State<MapSample> {
               child: BottomAppBarTab(
                 index: index,
                 onChangedTab: onChangedTab,
+                buttonDissapearing: buttonDissapearing,
               ))
         ])
       ]),

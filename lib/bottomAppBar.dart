@@ -4,44 +4,39 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class BottomAppBarTab extends StatefulWidget {
   final int index;
   final ValueChanged<int> onChangedTab;
+  final Function buttonDissapearing;
 
-  BottomAppBarTab(
-      // this.isMenuShown,
-      {
+  BottomAppBarTab({
     Key? key,
+    required this.buttonDissapearing,
     required this.index,
     required this.onChangedTab,
   }) : super(key: key);
 
   @override
   _BottomAppBarTabState createState() => _BottomAppBarTabState();
-
-  // var isMenuShown;
-
-  var selectedIndex;
-  // void buttonDissapearing(index) {
-  //   if (index != 1) {
-  //     isMenuShown = false;
-  //   } else {
-  //     isMenuShown = true;
-  //   }
-  // }
 }
 
 class _BottomAppBarTabState extends State<BottomAppBarTab> {
   @override
   Widget build(BuildContext context) {
-    return BottomAppBar(
-        //   shape: CircularNotchedRectangle(),
-        color: const Color.fromARGB(255, 155, 108, 77),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              buildTapItem(index: 0, icon: const Icon(Icons.person)),
-              buildTapItem(
-                  index: 1, icon: const Icon(FontAwesomeIcons.mapSigns)),
-              buildTapItem(index: 2, icon: const Icon(Icons.folder))
-            ]));
+    return Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Color.fromARGB(235, 155, 108, 90),
+          Color.fromARGB(255, 69, 19, 1),
+        ], begin: Alignment.bottomCenter, end: Alignment.topCenter)),
+        child: BottomAppBar(
+            elevation: 0,
+            color: Colors.transparent,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  buildTapItem(index: 0, icon: const Icon(Icons.person)),
+                  buildTapItem(
+                      index: 1, icon: const Icon(FontAwesomeIcons.mapSigns)),
+                  buildTapItem(index: 2, icon: const Icon(Icons.folder))
+                ])));
   }
 
   Widget buildTapItem({
@@ -59,6 +54,7 @@ class _BottomAppBarTabState extends State<BottomAppBarTab> {
         icon: icon,
         onPressed: () {
           widget.onChangedTab(index);
+          widget.buttonDissapearing(index);
         },
       ),
     );

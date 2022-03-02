@@ -115,8 +115,9 @@ class _ExpandableFabState extends State<ExpandableFab>
               child: FloatingActionButton(
                 elevation: 0,
                 highlightElevation: 0,
-                backgroundColor:
-                    _open ? Colors.white : const Color.fromARGB(225, 69, 19, 1),
+                backgroundColor: _open
+                    ? Colors.white
+                    : const Color.fromARGB(255, 155, 98, 67),
                 splashColor: Colors.white,
                 onPressed: () {
                   _toggle();
