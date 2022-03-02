@@ -12,55 +12,53 @@ class SaveBoxes extends ChangeNotifier {
       barrierColor: Colors.black.withOpacity(0.8),
       builder: (context) {
         return AlertDialog(
-            elevation: 0,
             shape: const RoundedRectangleBorder(
                 side: BorderSide(color: Colors.white, width: 2),
-                borderRadius: BorderRadius.all(Radius.circular(30))),
-            backgroundColor: Colors.brown,
+                borderRadius: BorderRadius.all(Radius.circular(50))),
+            backgroundColor: const Color.fromARGB(255, 130, 83, 60),
             content: TextField(
                 style: GoogleFonts.overpass(
                     color: Colors.white,
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold),
-                cursorWidth: 10,
-                cursorRadius: const Radius.circular(10),
+                cursorWidth: 6,
+                cursorRadius: const Radius.circular(4),
                 cursorColor: Colors.white,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: imie,
                     hintStyle: GoogleFonts.overpass(
-                        color: Colors.white.withOpacity(0.4),
-                        fontSize: 35.0,
+                        color: Colors.white.withOpacity(0.7),
+                        fontSize: 28.0,
                         fontWeight: FontWeight.bold))),
             actions: [
-              SizedBox(
+              Container(
+                  margin: const EdgeInsets.only(bottom: 30),
                   width: MediaQuery.of(context).size.width,
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         ElevatedButton(
-                            child: Text(
-                              "Odrzuć",
-                              style: GoogleFonts.overpass(fontSize: 30),
-                            ),
+                            child: const Icon(Icons.close, size: 40),
                             style: ElevatedButton.styleFrom(
                                 primary: Colors.brown.withRed(130),
                                 side: const BorderSide(
                                     width: 1, color: Colors.white),
                                 padding: const EdgeInsets.all(10)),
-                            onPressed: () {}),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
                         ElevatedButton(
-                            child: Text(
-                              "Zapisz",
-                              style: GoogleFonts.overpass(fontSize: 30),
-                            ),
+                            child: const Icon(Icons.done, size: 40),
                             style: ElevatedButton.styleFrom(
                                 primary: Colors.brown.withGreen(110),
                                 side: const BorderSide(
                                     width: 1, color: Colors.white),
                                 padding: const EdgeInsets.all(10)),
-                            onPressed: () {}),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
                       ]))
             ]);
       },

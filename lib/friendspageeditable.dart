@@ -184,6 +184,13 @@ class _FriendsPageEditableState extends State<FriendsPageEditable> {
               ],
             ),
           ),
+          ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  imie = Provider.of<ZmienneClass>(context).imie = "kurwa";
+                });
+              },
+              child: const Icon(Icons.change_circle, size: 40))
         ],
       ),
     );

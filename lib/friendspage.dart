@@ -13,11 +13,14 @@ class FriendsPage extends StatefulWidget {
 
 class _FriendsPageState extends State<FriendsPage> {
   double _turns = 0;
+
   void animacja() {
     setState(() {
-      _turns += 1 / 4;
+      _turns += 1 / 6;
     });
   }
+
+  bool buttonClicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,32 +28,40 @@ class _FriendsPageState extends State<FriendsPage> {
     String opis = Provider.of<ZmienneClass>(context).opis;
     return Scaffold(
       floatingActionButton: SizedBox(
-        height: 70,
-        width: 70,
+        height: 220,
+        width: 60,
         child: AnimatedRotation(
-          duration: const Duration(milliseconds: 250),
+          duration: const Duration(milliseconds: 300),
           turns: _turns,
           child: FloatingActionButton(
-            onPressed: () async {
-              animacja();
-              await Future.delayed(const Duration(milliseconds: 250));
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const FriendsPageEditable()));
-            },
-            elevation: 0,
-            highlightElevation: 0,
-            child: const Icon(
-              Icons.settings,
-              size: 40,
-              color: Color.fromARGB(190, 105, 30, 1),
-            ),
-            backgroundColor: Colors.white,
-          ),
+              onPressed: () async {
+                // Then check if the button has been clicked
+                if (!buttonClicked) {
+                  buttonClicked = true;
+                } else {
+                  return;
+                }
+
+                animacja();
+                await Future.delayed(const Duration(milliseconds: 300), () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FriendsPageEditable()));
+                });
+                buttonClicked = !buttonClicked;
+              },
+              elevation: 0,
+              highlightElevation: 0,
+              child: const Icon(
+                Icons.settings,
+                size: 40,
+                color: Color.fromARGB(255, 155, 108, 77),
+              ),
+              backgroundColor: Colors.white),
         ),
       ),
-      backgroundColor: const Color.fromARGB(190, 105, 30, 1),
+      backgroundColor: const Color.fromARGB(255, 155, 108, 77),
       body: ListView(
         children: [
           Padding(

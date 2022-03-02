@@ -12,7 +12,7 @@ class _SomePageState extends State<SomePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(190, 105, 30, 1),
+      color: const Color.fromARGB(255, 155, 108, 77),
       child: const Center(
         child: FaIcon(
           FontAwesomeIcons.crown,

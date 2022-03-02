@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -59,16 +58,8 @@ class MapSampleState extends State<MapSample> {
     //   print(lastPosition);
   }
 
-  void _onItemTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   void buttonDissapearing(index) {
-    if (index == 1) {
-      _isMenuShown = true;
-    } else {
+    if (index != 1) {
       _isMenuShown = false;
     }
   }
@@ -83,7 +74,7 @@ class MapSampleState extends State<MapSample> {
         builder: (context) {
           return AlertDialog(
             title: Text(
-              "localpoop",
+              "Do Something",
               style:
                   GoogleFonts.lemon(fontWeight: FontWeight.bold, fontSize: 30),
               textAlign: TextAlign.center,
@@ -110,11 +101,11 @@ class MapSampleState extends State<MapSample> {
       Stack(
         children: [
           GoogleMap(
-            myLocationButtonEnabled: false,
-            zoomControlsEnabled: true,
+            myLocationButtonEnabled: true,
+            zoomControlsEnabled: false,
             markers: _markers,
             myLocationEnabled: true,
-            mapType: MapType.satellite,
+            mapType: MapType.terrain,
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
@@ -140,88 +131,113 @@ class MapSampleState extends State<MapSample> {
       ),
       const SomePage()
     ];
+//decoration: const BoxDecoration
+//         border: Border(top: BorderSide(color: Colors.white, width: 10))),
 
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Visibility(
-        visible: _isMenuShown,
-        child: SizedBox(
-          width: (MediaQuery.of(context).size.width / 4 - 10),
-          height: MediaQuery.of(context).size.width * 0.14,
-          child: ExpandableFab(
-            distance: 80.0,
-            children: [
-              SizedBox.fromSize(
-                size: const Size(80, 80),
-                child: ActionButton(
-                  onPressed: () {
-                    setCustomMarker();
-                    getCurrentLocation();
-                  },
-                  icon: const FaIcon(FontAwesomeIcons.mapPin, size: 30),
-                ),
-              ),
+        body: screens[_selectedIndex],
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton:
+            Stack(alignment: Alignment.bottomCenter, children: [
+          Visibility(
+            visible: _isMenuShown,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 60),
+              child: ExpandableFab(
+                distance: 95.0,
+                children: [
+                  //PRZYCISKI PRZYCISKI PRZYCISKI PRZYCISKI PRZYCISKI PRZYCISKI
 
-              /// KOLEJNA
-              SizedBox.fromSize(
-                size: const Size(80, 80),
-                child: ActionButton(
-                  onPressed: () {
-                    setState(() {
-                      _addingOption = !_addingOption;
-                    });
-                  },
-                  icon:
-                      const FaIcon(FontAwesomeIcons.envelopeOpenText, size: 30),
-                ),
-              ),
+                  SizedBox.fromSize(
+                    child: ActionButton(
+                      onPressed: () {
+                        setCustomMarker();
+                        getCurrentLocation();
+                      },
+                      icon: const FaIcon(FontAwesomeIcons.mapPin, size: 30),
+                    ),
+                  ),
 
-              /// KOLEJNA
-              SizedBox.fromSize(
-                size: const Size(80, 80),
-                child: ActionButton(
-                  onPressed: () => _showAction(context, 0),
-                  icon: const FaIcon(FontAwesomeIcons.mapMarkedAlt, size: 30),
-                ),
-              )
-            ],
+                  SizedBox.fromSize(
+                    child: ActionButton(
+                      onPressed: () {
+                        setState(() {
+                          _addingOption = !_addingOption;
+                        });
+                      },
+                      icon: const FaIcon(FontAwesomeIcons.envelopeOpenText,
+                          size: 30),
+                    ),
+                  ),
+
+                  SizedBox.fromSize(
+                    child: ActionButton(
+                      onPressed: () => _showAction(context, 0),
+                      icon:
+                          const FaIcon(FontAwesomeIcons.mapMarkedAlt, size: 30),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        decoration: const BoxDecoration(
-            border: Border(top: BorderSide(color: Colors.white, width: 2))),
-        child: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Znajomi',
-                backgroundColor: Color.fromARGB(190, 105, 30, 1),
-              ),
-              BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.mapSigns),
-                label: 'Mapa',
-                backgroundColor: Color.fromARGB(210, 105, 30, 1),
-              ),
-              BottomNavigationBarItem(
-                icon: FaIcon(FontAwesomeIcons.crown),
-                label: 'Ranking',
-                backgroundColor: Color.fromARGB(190, 105, 30, 1),
-              ),
-            ],
-            type: BottomNavigationBarType.shifting,
-            currentIndex: _selectedIndex,
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.white,
-            showSelectedLabels: false,
-            iconSize: 38,
-            onTap: (int index) {
-              buttonDissapearing(index);
-              _onItemTap(index);
-            },
-            elevation: 4),
-      ),
-      body: screens[_selectedIndex],
-    );
+          Stack(alignment: AlignmentDirectional.bottomCenter, children: [
+            Container(
+                height: 80,
+                decoration: const BoxDecoration(
+                    border:
+                        Border(top: BorderSide(color: Colors.white, width: 2))),
+                child: BottomAppBar(
+                    //   shape: CircularNotchedRectangle(),
+                    color: const Color.fromARGB(255, 155, 108, 77),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          IconButton(
+                            tooltip: "Znajomi",
+                            icon: const Icon(Icons.person),
+                            onPressed: () {
+                              setState(() {
+                                _selectedIndex = 0;
+                              });
+                            },
+                          ),
+                          IconButton(
+                            tooltip: "Mapa",
+                            icon: const Icon(FontAwesomeIcons.mapSigns),
+                            onPressed: () {
+                              setState(() {
+                                buttonDissapearing;
+                                _selectedIndex = 1;
+                              });
+                            },
+                          ),
+                          IconButton(
+                            tooltip: "Ranking",
+                            icon: const Icon(Icons.folder),
+                            onPressed: () {
+                              setState(() {
+                                _selectedIndex = 2;
+                              });
+                            },
+                          ),
+                          //     icon: Icon(Icons.person),
+                          //     label: 'Znajomi',
+
+                          //     icon: FaIcon(FontAwesomeIcons.mapSigns),
+                          //     label: 'Mapa',
+
+                          //    icon: FaIcon(FontAwesomeIcons.crown),
+                          //    label: 'Ranking',
+
+                          // currentIndex: _selectedIndex,
+
+                          // onTap: (int index) {
+                          //   buttonDissapearing(index);
+                          //   _onItemTap(index);
+                          // },
+                        ])))
+          ])
+        ]));
   }
 }
