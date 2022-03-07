@@ -12,7 +12,7 @@ import 'package:poopy/somepage.dart';
 
 @immutable
 class MapSample extends StatefulWidget {
-  MapSample({
+  const MapSample({
     Key? key,
   }) : super(key: key);
 
@@ -95,11 +95,12 @@ class MapSampleState extends State<MapSample> {
       Stack(
         children: [
           GoogleMap(
+            zoomGesturesEnabled: true,
             myLocationButtonEnabled: true,
             zoomControlsEnabled: false,
             markers: _markers,
             myLocationEnabled: true,
-            mapType: MapType.terrain,
+            mapType: MapType.hybrid,
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);

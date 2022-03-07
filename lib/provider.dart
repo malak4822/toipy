@@ -17,6 +17,11 @@ class ZmienneClass extends ChangeNotifier {
 
   static const _keyUser = "user";
 
+  void setImie(String noweimie) {
+    imie = noweimie;
+    notifyListeners();
+  }
+
   String imie = "Kamil Malak";
   String opis =
       "Jo, jestem kamil i to jest mój testowy profil użytkownika, pisze te słowa bez sensu trochę ale bywa, nic na to nie poradzę";

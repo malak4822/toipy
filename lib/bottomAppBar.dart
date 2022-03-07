@@ -6,7 +6,7 @@ class BottomAppBarTab extends StatefulWidget {
   final ValueChanged<int> onChangedTab;
   final Function buttonDissapearing;
 
-  BottomAppBarTab({
+  const BottomAppBarTab({
     Key? key,
     required this.buttonDissapearing,
     required this.index,
@@ -23,8 +23,8 @@ class _BottomAppBarTabState extends State<BottomAppBarTab> {
     return Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(colors: [
-          Color.fromARGB(235, 155, 108, 90),
-          Color.fromARGB(255, 69, 19, 1),
+          Color.fromARGB(220, 135, 108, 90),
+          Color.fromARGB(255, 69, 29, 1),
         ], begin: Alignment.bottomCenter, end: Alignment.topCenter)),
         child: BottomAppBar(
             elevation: 0,

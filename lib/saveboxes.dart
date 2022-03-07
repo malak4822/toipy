@@ -4,6 +4,8 @@ import 'package:poopy/provider.dart';
 import 'package:provider/provider.dart';
 
 class SaveBoxes extends ChangeNotifier {
+  final imieContr = TextEditingController();
+
   void showNameAction(BuildContext context) {
     String imie = Provider.of<ZmienneClass>(context, listen: false).imie;
 
@@ -17,6 +19,7 @@ class SaveBoxes extends ChangeNotifier {
                 borderRadius: BorderRadius.all(Radius.circular(50))),
             backgroundColor: const Color.fromARGB(255, 130, 83, 60),
             content: TextField(
+                controller: imieContr,
                 style: GoogleFonts.overpass(
                     color: Colors.white,
                     fontSize: 30.0,
@@ -57,7 +60,10 @@ class SaveBoxes extends ChangeNotifier {
                                     width: 1, color: Colors.white),
                                 padding: const EdgeInsets.all(10)),
                             onPressed: () {
+                              Provider.of<ZmienneClass>(context, listen: false)
+                                  .setImie(imieContr.text);
                               Navigator.pop(context);
+                              print(imieContr.text);
                             }),
                       ]))
             ]);

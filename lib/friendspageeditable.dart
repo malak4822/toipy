@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:poopy/provider.dart';
 import 'package:poopy/saveboxes.dart';
 import 'package:provider/provider.dart';
@@ -60,7 +60,6 @@ class _FriendsPageEditableState extends State<FriendsPageEditable> {
 
   @override
   Widget build(BuildContext context) {
-    PickedFile _imageFile;
     String imie = Provider.of<ZmienneClass>(context).imie;
     String opis = Provider.of<ZmienneClass>(context).opis;
 
@@ -184,13 +183,6 @@ class _FriendsPageEditableState extends State<FriendsPageEditable> {
               ],
             ),
           ),
-          ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  imie = Provider.of<ZmienneClass>(context).imie = "kurwa";
-                });
-              },
-              child: const Icon(Icons.change_circle, size: 40))
         ],
       ),
     );

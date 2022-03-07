@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Sky extends CustomPainter {
+  @override
   void paint(Canvas canvas, Size size) {
     final Rect rect = Offset.zero & size;
     const RadialGradient gradient = RadialGradient(

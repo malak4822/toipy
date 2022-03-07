@@ -251,8 +251,8 @@ class _MyHomePageState extends State<MyHomePage> {
       duration: const Duration(milliseconds: 500),
       child: ElevatedButton(
           onPressed: () {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => MapSample()));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const MapSample()));
           },
           style: ElevatedButton.styleFrom(
               side: BorderSide(color: Colors.white, width: _borderwidth),

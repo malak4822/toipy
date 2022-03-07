@@ -31,7 +31,7 @@ class _FriendsPageState extends State<FriendsPage> {
         height: 220,
         width: 60,
         child: AnimatedRotation(
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 1000),
           turns: _turns,
           child: FloatingActionButton(
               onPressed: () async {
@@ -43,7 +43,7 @@ class _FriendsPageState extends State<FriendsPage> {
                 }
 
                 animacja();
-                await Future.delayed(const Duration(milliseconds: 300), () {
+                await Future.delayed(const Duration(milliseconds: 1000), () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
