@@ -22,6 +22,11 @@ class ZmienneClass extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setSurname(String noweNazwisko) {
+    opis = noweNazwisko;
+    notifyListeners();
+  }
+
   String imie = "Kamil Malak";
   String opis =
       "Jo, jestem kamil i to jest mój testowy profil użytkownika, pisze te słowa bez sensu trochę ale bywa, nic na to nie poradzę";

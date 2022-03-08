@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 class SaveBoxes extends ChangeNotifier {
   final imieContr = TextEditingController();
+  final surNameCont = TextEditingController();
 
   void showNameAction(BuildContext context) {
     String imie = Provider.of<ZmienneClass>(context, listen: false).imie;
@@ -80,16 +81,18 @@ class SaveBoxes extends ChangeNotifier {
       barrierColor: Colors.black.withOpacity(0.8),
       builder: (context) {
         return AlertDialog(
+            contentTextStyle: GoogleFonts.overpass(
+                color: Colors.white,
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold),
+            contentPadding: EdgeInsets.all(0),
             elevation: 0,
             shape: const RoundedRectangleBorder(
                 side: BorderSide(color: Colors.white, width: 2),
                 borderRadius: BorderRadius.all(Radius.circular(30))),
             backgroundColor: Colors.brown,
             content: TextField(
-                style: GoogleFonts.overpass(
-                    color: Colors.white,
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold),
+                controller: surNameCont,
                 cursorWidth: 10,
                 cursorHeight: 14,
                 cursorRadius: const Radius.circular(20),
@@ -106,30 +109,31 @@ class SaveBoxes extends ChangeNotifier {
               SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         ElevatedButton(
-                            child: Text(
-                              "Odrzuć",
-                              style: GoogleFonts.overpass(fontSize: 30),
-                            ),
+                            child: const Icon(Icons.close, size: 40),
                             style: ElevatedButton.styleFrom(
                                 primary: Colors.brown.withRed(130),
                                 side: const BorderSide(
                                     width: 1, color: Colors.white),
                                 padding: const EdgeInsets.all(10)),
-                            onPressed: () {}),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
                         ElevatedButton(
-                            child: Text(
-                              "Zapisz",
-                              style: GoogleFonts.overpass(fontSize: 30),
-                            ),
+                            child: const Icon(Icons.done, size: 40),
                             style: ElevatedButton.styleFrom(
                                 primary: Colors.brown.withGreen(110),
                                 side: const BorderSide(
                                     width: 1, color: Colors.white),
                                 padding: const EdgeInsets.all(10)),
-                            onPressed: () {}),
+                            onPressed: () {
+                              Provider.of<ZmienneClass>(context, listen: false)
+                                  .setSurname(surNameCont.text);
+                              Navigator.pop(context);
+                              print(imieContr.text);
+                            }),
                       ]))
             ]);
       },
