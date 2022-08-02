@@ -2,10 +2,8 @@ import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:poopy/mapage.dart';
 import 'package:poopy/provider.dart';
-
 import 'package:poopy/saveboxes.dart';
 import 'package:provider/provider.dart';
 
@@ -50,16 +48,16 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-bool _isPasswordVisible = true;
+var myFocusNode = FocusNode();
 
-double _wysokosc = 80;
-double _secwysokosc = 80;
-double _morewysokosc = 100;
-double _moresecwysokosc = 100;
+bool _isPasswordVisible = true;
 
 double _initialHeight = 150;
 double _initialImageHeight = _initialHeight;
 double _expandedImageHeight = 180;
+
+double _wysokosc = 70;
+double _secwysokosc = 70;
 
 double _loginButtonVisibility = 0;
 double _borderwidth = 0.0;
@@ -107,8 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
 //////////////////////////// POLA TEKSTOWE ///////////////////////////////////
   Widget fields() => Column(children: [
         AnimatedContainer(
-            curve: Curves.ease,
             height: _wysokosc,
+            curve: Curves.ease,
             duration: const Duration(milliseconds: 300),
             margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -125,17 +123,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Container(
                     margin: const EdgeInsets.only(left: 10),
                     child: Focus(
-                      onFocusChange: (hasFocus) {
-                        setState(() {
-                          if (_wysokosc == _morewysokosc) {
-                            _wysokosc = _wysokosc - 25;
-                          } else {
-                            _wysokosc = _morewysokosc;
-                          }
-                        });
+                      debugLabel: "1",
+                      onFocusChange: (a) {
+                        print("first");
                       },
                       child: TextFormField(
-                        onChanged: (a) {
+                        onFieldSubmitted: (c) {
+                          print("sraka ");
+                          myFocusNode.requestFocus();
+                        },
+                        onChanged: (d) {
                           setState(() {
                             if (_loginButtonVisibility <= 0.5) {
                               _loginButtonVisibility =
@@ -180,17 +177,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Container(
                   margin: const EdgeInsets.only(left: 10),
                   child: Focus(
-                    onFocusChange: (a) {
-                      setState(() {
-                        if (_secwysokosc == _moresecwysokosc) {
-                          _secwysokosc = _secwysokosc - 25;
-                        } else {
-                          _secwysokosc = _moresecwysokosc;
-                        }
-                      });
+                    focusNode: myFocusNode,
+                    debugLabel: "2",
+                    onFocusChange: (b) {
+                      print("aye");
                     },
                     child: TextFormField(
-                      onChanged: (a) {
+                      onChanged: (j) {
                         setState(() {
                           if (_loginButtonVisibility <= 0.9375) {
                             _loginButtonVisibility =
@@ -221,20 +214,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               AnimatedIconButton(
+                size: 24,
                 animationDirection: const AnimationDirection.reverse(),
-                size: 32,
-                onPressed: () {
-                  setState(() {
-                    _isPasswordVisible = !_isPasswordVisible;
+                onPressed: () async {
+                  await Future.delayed(const Duration(milliseconds: 400), () {
+                    setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
                   });
                 },
                 duration: const Duration(milliseconds: 400),
                 splashColor: Colors.transparent,
                 icons: const <AnimatedIconItem>[
                   AnimatedIconItem(
-                    icon: Icon(Icons.remove_red_eye_outlined,
-                        color: Colors.white),
-                  ),
+                      icon: Icon(Icons.remove_red_eye_outlined,
+                          color: Colors.white)),
                   AnimatedIconItem(
                     icon: Icon(Icons.remove_red_eye, color: Colors.white),
                   ),
@@ -246,6 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
 /////////////////////////// POLA LOGOWANIA SIĘ ///////////////////////////////
 
   Widget mediasilogin() => AnimatedContainer(
+      height: 50,
       margin: const EdgeInsets.symmetric(horizontal: 90),
       curve: Curves.bounceIn,
       duration: const Duration(milliseconds: 500),
@@ -266,15 +261,15 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Login ",
+                "go ",
                 style: GoogleFonts.overpass(
-                    fontSize: 40.0,
+                    fontSize: 20.0,
                     color: Colors.white,
                     fontWeight: FontWeight.w200),
               ),
               const FaIcon(
-                FontAwesomeIcons.arrowAltCircleUp,
-                size: 40,
+                FontAwesomeIcons.walking,
+                size: 20,
               ),
             ],
           )));
