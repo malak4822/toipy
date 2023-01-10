@@ -17,7 +17,7 @@ class ZmienneClass extends ChangeNotifier {
     notifyListeners();
   }
 
-  String imie = "Kamil Malak";
+  String imie = "Adam Mickiewicz";
   String opis =
-      "Jo, jestem kamil i to jest mój testowy profil użytkownika, pisze te słowa bez sensu trochę ale bywa, nic na to nie poradzę";
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a a type specimen book";
 }
