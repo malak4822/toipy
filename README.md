@@ -1,6 +1,6 @@
-# poppy
+# Toipy
 
-A new Flutter project.
+Never ended application due finding out that there is very similar application on market. It is including Google Maps and Signing user system.
 
 ## Getting Started
 
